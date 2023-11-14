@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/id_img_qly_product"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:src="@drawable/img_6" />
+            <ImageView
+                android:id="@+id/id_edit_product"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/img_7" />
+            <ImageView
+                android:id="@+id/id_del_product"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/img_8" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/id_name_qly_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint=" name product"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/id_price_qly_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:hint="gia: 12000000"/>
+                <TextView
+                    android:id="@+id/id_category_qly_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="7"
+                    android:textColor="@color/black"
+                    android:hint="Loai: 130"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/id_stock_qly_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:hint="sl kho: 130"/>
+                <TextView
+                    android:id="@+id/id_sold_qly_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="5"
+                    android:textColor="@color/black"
+                    android:hint="da ban: 3"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/id_import_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:hint="ngay nhap: 12/10/2023"/>
+            <TextView
+                android:id="@+id/id_price_product_ngang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:hint="Mo ta: khung xe bằng sắt, bền đẹp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
