@@ -51,14 +51,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".login.RegisterActivity"
+            android:name=".dao.login.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".dao.login.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

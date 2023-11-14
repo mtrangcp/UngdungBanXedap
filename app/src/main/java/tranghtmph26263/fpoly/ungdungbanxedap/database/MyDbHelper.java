@@ -31,10 +31,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 " fullname text, phone text unique , active integer )";
         sqLiteDatabase.execSQL(sql);
         sql = "insert into user(fullname, username, password, phone, active) values('Ha Minh Trang', 'mtrang', '111', '0363889233', 1), " +
-                "('Nguyen Thu Hang', 'thang', '112', '0363887665', 1), ('Tran Khanh Linh', 'klinh', '113', '0364556237', 1), " +
+                "('Nguyen Thu Hang', 'thang', '112', '0363887665', 0), ('Tran Khanh Linh', 'klinh', '113', '0364556237', 1), " +
                 "('Le Nguyet Hang', 'nhang', '114', '0363776456', 1), ('Le Thi Hoa', 'thoa', '115', '0345446787', 1)";
         sqLiteDatabase.execSQL(sql);
-
 
 
     }

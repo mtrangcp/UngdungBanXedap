@@ -2,7 +2,7 @@ package tranghtmph26263.fpoly.ungdungbanxedap.chao;
 
 import androidx.appcompat.app.AppCompatActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
-import tranghtmph26263.fpoly.ungdungbanxedap.login.LoginActivity;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.login.LoginActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

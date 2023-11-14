@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C4C2F3"
-    tools:context=".login.LoginActivity">
+    tools:context=".dao.login.LoginActivity">
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageView2"-->

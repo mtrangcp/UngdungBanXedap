@@ -1,4 +1,4 @@
-package tranghtmph26263.fpoly.ungdungbanxedap.login;
+package tranghtmph26263.fpoly.ungdungbanxedap.dao.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
