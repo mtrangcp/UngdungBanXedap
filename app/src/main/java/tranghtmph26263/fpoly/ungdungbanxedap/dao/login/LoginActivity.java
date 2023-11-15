@@ -78,8 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
 
-
-
             }
         });
 
@@ -90,8 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     public void Remember( String username, String password, boolean status){

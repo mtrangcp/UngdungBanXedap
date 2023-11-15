@@ -16,9 +16,6 @@ public class CategoryDAO {
 
     public CategoryDAO(Context context){
         dbHelper = new MyDbHelper(context);
-    }
-
-    public void open(){
         db = dbHelper.getWritableDatabase();
     }
 

@@ -28,10 +28,24 @@
             android:id="@+id/id_name_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_weight="7"
             android:textColor="@color/black"
             android:hint="Name"/>
 
+        <ImageView
+            android:id="@+id/edit_category"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:src="@drawable/img_7"
+            />
+        <ImageView
+            android:id="@+id/del_category"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:src="@drawable/img_8"
+            />
 
     </LinearLayout>
 

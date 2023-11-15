@@ -11,6 +11,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.database.MyDbHelper;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,9 +34,8 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.id_qly_category);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CategoryAdapter(getApplicationContext());
+        adapter = new CategoryAdapter(CategoryActivity.this, dao);
         dao = new CategoryDAO(this);
-        dao.open();
 
         arrayList = dao.selectAll();
         adapter.setData(arrayList);
@@ -43,6 +43,12 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.showDialogAdd(CategoryActivity.this);
+            }
+        });
 
     }
 }
