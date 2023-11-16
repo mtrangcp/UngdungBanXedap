@@ -20,14 +20,34 @@
         android:layout_margin="10dp"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_add_nameCategory"
+            android:id="@+id/ed_add_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tên thể loại sản phẩm"/>
+            android:hint="Fullname"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_add_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_add_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnSaveAddCategory"
+        android:id="@+id/btnSaveAddUser"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

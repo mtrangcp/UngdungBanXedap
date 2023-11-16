@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".admin.CategoryActivity">
+    tools:context=".admin.DiscountActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/id_toolbar_qlyUser"
-        app:title="Quản Lý User"
+        android:id="@+id/id_toolbar_qlyDiscount"
+        app:title="Quản Lý Phiếu giảm giá"
         app:titleTextColor="@color/white"
         android:background="@color/xanh"
         android:layout_width="match_parent"
@@ -17,16 +17,16 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_qly_product"
+        android:id="@+id/id_qly_Bill"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/id_toolbar_qlyUser"
+        android:layout_below="@id/id_toolbar_qlyDiscount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/id_fab_add_user"
+        android:id="@+id/id_fab_add_Discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

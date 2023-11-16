@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="2dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/id_ma_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:hint="Mã Bill"
+                android:textColor="@color/black" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/name_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:hint="Tên Sản Phẩm"
+                    android:textColor="@color/black"
+                    android:layout_alignParentLeft="true"/>
+                <TextView
+                    android:id="@+id/id_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="0dp"
+                    android:textStyle="bold"
+                    android:hint="Mã sản phầm"
+                    android:textColor="@color/black"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/name_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:hint="Tên khách hàng: TRần ngọc hải"/>
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:hint="Phone number:"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/created_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:hint="Ngày mua: 20/10/2004"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="20dp">
+                <TextView
+                    android:id="@+id/temp_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FF0000"
+                    android:hint="Mã giảm giá"
+                    android:layout_alignParentRight="true"/>
+                <TextView
+                    android:id="@+id/real_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FF0000"
+                    android:hint="Giá: 1000000 VNĐ"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#FF0000"
+                android:hint="Địa chỉ: Số 110 Trần duy hưng - Cầu Giấy - HÀ Nội"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
