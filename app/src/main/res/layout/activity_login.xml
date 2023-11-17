@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C4C2F3"
-    tools:context=".dao.login.LoginActivity">
+    tools:context=".chao.LoginActivity">
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageView2"-->
@@ -31,7 +31,6 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng nhập"

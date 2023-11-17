@@ -18,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity {
-    MyDbHelper db;
     CategoryAdapter adapter;
     ArrayList<Category> arrayList = new ArrayList<>();
     RecyclerView recyclerView;

@@ -22,18 +22,20 @@
                 android:id="@+id/id_img_qly_product"
                 android:layout_width="70dp"
                 android:layout_height="60dp"
-                android:src="@drawable/img_6" />
+                />
             <ImageView
+                android:layout_marginTop="10dp"
                 android:id="@+id/id_edit_product"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
                 android:src="@drawable/img_7" />
             <ImageView
                 android:id="@+id/id_del_product"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/img_8" />
         </LinearLayout>
 
@@ -67,14 +69,7 @@
                     android:layout_marginTop="8dp"
                     android:textColor="@color/black"
                     android:hint="gia: 12000000"/>
-                <TextView
-                    android:id="@+id/id_category_qly_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="7"
-                    android:textColor="@color/black"
-                    android:hint="Loai: 130"/>
+
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -106,7 +101,7 @@
                 android:textColor="@color/black"
                 android:hint="ngay nhap: 12/10/2023"/>
             <TextView
-                android:id="@+id/id_price_product_ngang"
+                android:id="@+id/id_describe_qly_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#BCBAF6"
-    tools:context=".dao.login.RegisterActivity">
+    tools:context=".chao.RegisterActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,7 +19,6 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng ký"

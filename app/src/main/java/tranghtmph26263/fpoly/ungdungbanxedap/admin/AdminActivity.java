@@ -34,7 +34,7 @@ public class AdminActivity extends AppCompatActivity {
         tv_qly_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(AdminActivity.this, ProductActivity.class));
             }
         });
         tv_qly_bill.setOnClickListener(new View.OnClickListener() {

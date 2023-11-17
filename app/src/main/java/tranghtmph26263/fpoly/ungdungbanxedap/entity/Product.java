@@ -5,13 +5,23 @@ import java.sql.Blob;
 public class Product {
     private int id, category_id;
     private String name, describe, import_date;
-    private Blob avatar;
+    private byte[] avatar;
     private int price, stock, sold;
 
     public Product() {
     }
 
-    public Product(int id, int category_id, String name, String describe, String import_date, Blob avatar, int price, int stock, int sold) {
+    public Product(int id, String name, String describe, String import_date, int price, int stock, int sold) {
+        this.id = id;
+        this.name = name;
+        this.describe = describe;
+        this.import_date = import_date;
+        this.price = price;
+        this.stock = stock;
+        this.sold = sold;
+    }
+
+    public Product(int id, int category_id, String name, String describe, String import_date, byte[] avatar, int price, int stock, int sold) {
         this.id = id;
         this.category_id = category_id;
         this.name = name;
@@ -63,11 +73,11 @@ public class Product {
         this.import_date = import_date;
     }
 
-    public Blob getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Blob avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 

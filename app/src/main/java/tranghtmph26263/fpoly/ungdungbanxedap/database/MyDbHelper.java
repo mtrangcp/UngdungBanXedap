@@ -36,6 +36,18 @@ public class MyDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql);
 
 
+        sql = "create table discount(id integer not null primary key autoincrement, code_name text not null unique, value integer ," +
+                " start_date text, expiration_dadte text , detail text )";
+        sqLiteDatabase.execSQL(sql);
+        sql = "insert into discount(code_name, start_date, expiration_dadte, detail, value) values" +
+                "('VMCS20', '1/5/2023', '1/6/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS30', '1/6/2023', '1/7/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS40', '1/5/2023', '1/6/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS50', '1/5/2023', '1/6/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS60', '1/5/2023', '1/6/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS90', '1/5/2023', '1/6/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000)";
+        sqLiteDatabase.execSQL(sql);
+
     }
 
     @Override
