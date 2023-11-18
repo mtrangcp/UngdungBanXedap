@@ -7,18 +7,6 @@
     android:background="#C4C2F3"
     tools:context=".chao.LoginActivity">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="510dp"-->
-<!--        android:src="@drawable/nen"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="443dp"
@@ -31,6 +19,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng nhập"
@@ -49,21 +38,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxStrokeWidth="0dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_username_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/bogoc_button"
                 android:hint="Username"
-                android:textColor="@color/black"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -71,15 +61,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:boxStrokeWidth="0dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:inputType="textPassword"
                 android:background="@drawable/bogoc_button"
                 android:hint="Password"
-                android:textColor="@color/black"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
@@ -87,18 +79,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Remember me"/>
+            android:text="Remember me" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
-            android:textStyle="bold"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bogoc_button2"/>
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bogoc_button2"
+            android:text="Đăng nhập"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_dangky"
@@ -106,9 +98,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="130dp"
-            android:textStyle="bold"
+            android:text="Bạn chưa có tài khoản? Đắng ký!"
             android:textSize="20dp"
-            android:text="Bạn chưa có tài khoản? Đắng ký!"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
