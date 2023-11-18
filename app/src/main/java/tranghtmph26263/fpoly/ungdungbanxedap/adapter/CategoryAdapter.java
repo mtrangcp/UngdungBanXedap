@@ -126,7 +126,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                 }else{
                     Toast.makeText(context, "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();
                 }
-
                 dialog.dismiss();
             }
         });

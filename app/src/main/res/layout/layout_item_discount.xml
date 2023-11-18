@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:weightSum="11"
+        android:padding="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="10"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/id_name_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:hint="name" />
+            <TextView
+                android:id="@+id/id_value_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="@color/black"
+                android:hint="Gia tri"/>
+            <TextView
+                android:id="@+id/id_startDate_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="@color/black"
+                android:hint="Ngay bat dau"/>
+            <TextView
+                android:id="@+id/id_expirationDate_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="@color/black"
+                android:hint="Ngay ket thuc"/>
+            <TextView
+                android:id="@+id/id_detail_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:textColor="@color/black"
+                android:hint="Mo ta"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/edit_discount"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/img_7"
+                />
+            <ImageView
+                android:id="@+id/del_discount"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:src="@drawable/img_8"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

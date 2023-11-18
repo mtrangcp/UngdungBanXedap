@@ -24,7 +24,6 @@ public class CategoryDAO {
         contentValues.put("name", obj.getName());
 
         long res = db.insert("category", null, contentValues);
-
         return  res;
     }
 

@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         AnhXa();
         userDAO = new UserDAO(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
+        SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
         String user = sharedPreferences.getString("USERNAME", "");
         String pass = sharedPreferences.getString("PASSWORD", "");
         boolean check = sharedPreferences.getBoolean("CHECK", false);

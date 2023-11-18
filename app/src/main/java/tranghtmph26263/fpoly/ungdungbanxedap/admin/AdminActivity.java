@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class AdminActivity extends AppCompatActivity {
-    TextView tv_qly_user, tv_qly_category, tv_qly_product, tv_qly_bill, tv_qly_thongKe, tv_changePass;
+    TextView tv_qly_user, tv_qly_category, tv_qly_product, tv_qly_bill,tv_qly_discount, tv_qly_thongKe, tv_changePass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,12 @@ public class AdminActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(AdminActivity.this, ChangePasswordActivity.class));            }
         });
-
+        tv_qly_discount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminActivity.this, DiscountActivity.class));
+            }
+        });
     }
 
 
@@ -63,5 +68,6 @@ public class AdminActivity extends AppCompatActivity {
         tv_qly_bill = findViewById(R.id.txt_qly_bill);
         tv_qly_thongKe = findViewById(R.id.txt_qly_thongKe);
         tv_changePass = findViewById(R.id.txt_doiMK);
+        tv_qly_discount = findViewById(R.id.txt_qly_discount);
     }
 }

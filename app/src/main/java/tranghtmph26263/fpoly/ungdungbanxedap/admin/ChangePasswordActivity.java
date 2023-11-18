@@ -28,10 +28,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save_changePass);
         btnHuy = findViewById(R.id.btn_huy_changePass);
 
-        String oldPass = ed_oldPass.getText().toString().trim();
-        String newPass = ed_newPass.getText().toString().trim();
-        String reNewPass = ed_reNewPass.getText().toString().trim();
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +57,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
 
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("PASSWORD",newPass );
+                editor.putString("PASSWORD",ed_newPass.getText().toString().trim() );
                 editor.commit();
                 Toast.makeText(ChangePasswordActivity.this, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
 
