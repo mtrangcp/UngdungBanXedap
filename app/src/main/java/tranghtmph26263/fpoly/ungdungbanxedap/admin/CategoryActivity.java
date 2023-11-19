@@ -35,7 +35,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         adapter = new CategoryAdapter(CategoryActivity.this, dao);
         dao = new CategoryDAO(this);
-
         arrayList = dao.selectAll();
         adapter.setData(arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);

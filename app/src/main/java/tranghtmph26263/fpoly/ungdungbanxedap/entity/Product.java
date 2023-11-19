@@ -1,6 +1,7 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.entity;
 
 import java.sql.Blob;
+import java.util.Arrays;
 
 public class Product {
     private int id, category_id;
@@ -75,6 +76,21 @@ public class Product {
 
     public byte[] getAvatar() {
         return avatar;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", category_id=" + category_id +
+                ", name='" + name + '\'' +
+                ", describe='" + describe + '\'' +
+                ", import_date='" + import_date + '\'' +
+                ", avatar=" + Arrays.toString(avatar) +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", sold=" + sold +
+                '}';
     }
 
     public void setAvatar(byte[] avatar) {

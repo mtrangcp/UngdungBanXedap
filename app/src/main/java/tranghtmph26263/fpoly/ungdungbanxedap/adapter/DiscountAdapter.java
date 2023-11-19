@@ -50,9 +50,11 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     @Override
     public void onBindViewHolder(@NonNull DiscountViewholder holder, int position) {
         dao = new DiscountDAO(context);
-        Discount obj = arrayList.get(position);
-        Log.d("zzzzz", "onBindViewHolder: "+ obj.getId());
         int index = position;
+        Discount obj = arrayList.get(index);
+        Log.d("zzzzz", "onBindViewHolder: "+ obj.getId());
+
+
 
         if ( obj == null){
             return;
@@ -158,13 +160,13 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
                 Log.d("zzzzz", "onClick: "+ obj.getCode_name());
                 int res = dao.updateRow(obj);
                 Log.d("zzzzz", "onClick: "+ res);
-//                if  ( res > 0){
-//                    arrayList.set(index, obj);
-//                    notifyDataSetChanged();
-//                    Toast.makeText(context, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(context, "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();
-//                }
+                if  ( res > 0){
+                    arrayList.set(index, obj);
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
             }
         });

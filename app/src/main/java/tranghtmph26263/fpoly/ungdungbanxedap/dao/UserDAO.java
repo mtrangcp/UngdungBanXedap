@@ -107,5 +107,8 @@ public class UserDAO {
         return false;
     }
 
-
+    public int updateActive(User obj ){
+        int res = db.delete("user", "id = ?" , new String[] { obj.getId() +"" });
+        return  res;
+    }
 }

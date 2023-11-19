@@ -82,14 +82,16 @@
         </activity>
         <activity
             android:name=".chao.LoginActivity"
-            android:exported="false">
+            android:exported="false"
+            android:noHistory="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".chao.ChaoActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

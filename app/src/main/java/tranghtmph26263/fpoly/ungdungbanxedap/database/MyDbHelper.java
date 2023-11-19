@@ -22,7 +22,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql);
 
 
-        sql = "create table product(id integer not null primary key autoincrement, name text not null unique, image blob ," +
+        sql = "create table product(id integer not null primary key autoincrement, name text not null unique, image blob not null ," +
                 " price integer not null, describe text, stock integer, import_date text, sold integer, category_id integer not null )";
         sqLiteDatabase.execSQL(sql);
 

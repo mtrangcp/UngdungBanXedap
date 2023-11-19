@@ -26,9 +26,9 @@ public class ChaoActivity extends AppCompatActivity {
             public void run() {
                 Intent intent  = new Intent(ChaoActivity.this, LoginActivity.class);
                 startActivity(intent);
-
+                finish();
             }
-        }, 5000);
+        }, 1000);
 
     }
 }

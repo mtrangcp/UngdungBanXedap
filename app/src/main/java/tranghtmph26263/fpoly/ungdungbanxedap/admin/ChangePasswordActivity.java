@@ -45,8 +45,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
 
                 SharedPreferences pref = getApplication().getSharedPreferences("ADMIN_INFO", MODE_PRIVATE);
-                String savedPass = pref.getString("PASSWORD", "");
-                Log.d("zzzzz", "onClick: "+savedPass + "  Và :"+ ed_oldPass.getText().toString().trim());
+                String savedPass = pref.getString("PASSWORD", "123");
+
+                Log.d("zzzzzz", "pass cu: "+savedPass + "  Và :"+ ed_oldPass.getText().toString().trim());
+
+
                 if ( !savedPass.equals(ed_oldPass.getText().toString().trim())){
                     Toast.makeText(ChangePasswordActivity.this, "Mật khẩu cũ không đúng!", Toast.LENGTH_SHORT).show();
                     return;

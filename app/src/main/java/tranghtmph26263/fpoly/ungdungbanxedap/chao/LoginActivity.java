@@ -31,17 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         AnhXa();
-        userDAO = new UserDAO(this);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
-        String user = sharedPreferences.getString("USERNAME", "");
-        String pass = sharedPreferences.getString("PASSWORD", "");
+        String user = sharedPreferences.getString("USERNAME", "admin");
+        String pass = sharedPreferences.getString("PASSWORD", "123");
         boolean check = sharedPreferences.getBoolean("CHECK", false);
 
-        ed_username.setText(user);
-        ed_password.setText(pass);
+        userDAO = new UserDAO(this);
         chb_remember.setChecked(check);
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,39 +54,33 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                SharedPreferences pref = getApplication().getSharedPreferences("ADMIN_INFO", MODE_PRIVATE);
-                String password = pref.getString("PASSWORD", "");
-                Log.d("zzzz", "onClick: "+ password);
-                if ( password == ""){
-                    if (u.equals("admin") && p.equals("123") ){
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công tài khoản Admin!", Toast.LENGTH_SHORT).show();
-                        RememberAdmin(u, p, chb_remember.isChecked());
+                if (u.equals(user) && p.equals(pass) ){
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công tài khoản Admin!", Toast.LENGTH_SHORT).show();
+                    RememberAdmin(u, p, chb_remember.isChecked());
 
-                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                        startActivity(intent);
-
-                    }
+                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                    startActivity(intent);
                 }else{
-                    if (u.equals("admin") && p.equals(password) ){
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công tài khoản Admin!", Toast.LENGTH_SHORT).show();
-                        RememberAdmin(u, p, chb_remember.isChecked());
+                    boolean check = userDAO.CheckLogin(u,p);
+                    if ( check){
+                        Log.d("zzzz", "check: "+check);
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("PASSWORD",pass );
+                        editor.putString("USERNAME",user );
+                        editor.commit();
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+
+                        finish();
 
                     }else{
-                        // ktra tk user
-                        boolean check = userDAO.CheckLogin(u,p);
-                        if ( check){
-                            Log.d("zzzz", "check: "+check);
-                            RememberUser(u, p, chb_remember.isChecked());
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        }else{
-                            Log.d("zzzz", "check: "+check);
-                            RememberUser(u, p, chb_remember.isChecked());
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-                        }
+                        Log.d("zzzz", "check: "+check);
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -107,20 +98,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void RememberAdmin( String username, String password, boolean status){
         SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        if ( !status){
-            editor.clear();
-        }else{
-            editor.putString("PASSWORD",password );
-            editor.putString("USERNAME",username );
-            editor.putBoolean("CHECK",true );
-        }
-        editor.commit();
-    }
-
-    public void RememberUser( String username, String password, boolean status){
-        SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if ( !status){

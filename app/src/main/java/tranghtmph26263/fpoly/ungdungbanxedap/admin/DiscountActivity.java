@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +37,10 @@ public class DiscountActivity extends AppCompatActivity {
         dao = new DiscountDAO(this);
 
         arrayList = dao.selectAll();
+        int i;
+        for (  i =0; i< arrayList.size(); i++){
+            Log.d("zzzzz", "id : "+ arrayList.get(i).getId() + " \n");
+        }
         adapter.setData(arrayList);
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(manager);

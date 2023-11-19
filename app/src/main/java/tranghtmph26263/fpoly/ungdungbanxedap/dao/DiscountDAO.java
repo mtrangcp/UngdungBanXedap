@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,8 @@ public class DiscountDAO {
         contentValues.put("expiration_date", obj.getExpiration_date());
         contentValues.put("detail", obj.getDetail());
 
+        Log.d("zzzzz", "updateRow: "+ obj.getId());
+
         int res = db.update("discount",contentValues, "id = ?", new String[]{obj.getId()+""});
         return  res;
     }
@@ -74,13 +77,14 @@ public class DiscountDAO {
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
                 String name= cursor.getString(1);
                 int value= cursor.getInt(2);
                 String batDau= cursor.getString(3);
                 String hetHan= cursor.getString(4);
                 String detail= cursor.getString(5);
 
-                listDiscount.add(new Discount(value, name, detail, batDau, hetHan));
+                listDiscount.add(new Discount(id,value, name, detail, batDau, hetHan));
                 cursor.moveToNext();
             }
         }

@@ -1,5 +1,6 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.admin;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 
@@ -7,9 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminActivity extends AppCompatActivity {
     TextView tv_qly_user, tv_qly_category, tv_qly_product, tv_qly_bill,tv_qly_discount, tv_qly_thongKe, tv_changePass;
+
+    private static final int BACK_PRESS_INTERVAL = 2000;
+    private long backPressTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +25,7 @@ public class AdminActivity extends AppCompatActivity {
         tv_qly_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(AdminActivity.this, UserActivity.class));
             }
         });
         tv_qly_category.setOnClickListener(new View.OnClickListener() {

@@ -79,6 +79,7 @@ public class ProductActivity extends AppCompatActivity {
                 TextInputEditText ed_describe = dialog.findViewById(R.id.ed_add_describeProduct);
                 ImageView img_add = dialog.findViewById(R.id.add_img_product);
                 ImageView img_avatar = dialog.findViewById(R.id.img_up_avatar_product);
+                Button btnSave = dialog.findViewById(R.id.btnSaveAddProduct);
 
                 final Spinner spinner = dialog.findViewById(R.id.spin_category);
                 CategoryDAO categoryDAO = new CategoryDAO(ProductActivity.this);
@@ -86,7 +87,7 @@ public class ProductActivity extends AppCompatActivity {
                 SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAll());
                 spinner.setAdapter(adapter);
 
-                imgAvatarInDialog = img_avatar;
+
                 img_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -95,9 +96,9 @@ public class ProductActivity extends AppCompatActivity {
                         startActivityForResult(intent, requestCodefolder);
                     }
                 });
+                imgAvatarInDialog = img_avatar;
                 dialog.show();
 
-                Button btnSave = dialog.findViewById(R.id.btnSaveAddProduct);
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -136,13 +137,22 @@ public class ProductActivity extends AppCompatActivity {
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                         byte[] avatar = stream.toByteArray();
-                        Log.d("zzzzzzzz", "onClick: "+ avatar);
 
                         Category objCtegory = (Category) spinner.getSelectedItem();
                         int category_id = objCtegory.getId();
 
-                        long  rowId = dao.insertNew(name, describe, date, Integer.parseInt(price),Integer.parseInt(stock),Integer.parseInt(sold), category_id, avatar);
-                        if (rowId != -1) {
+                        Product obj = new Product();
+                        obj.setStock(Integer.parseInt(stock));
+                        obj.setSold(Integer.parseInt(sold));
+                        obj.setPrice(Integer.parseInt(price));
+                        obj.setName(name);
+                        obj.setDescribe(describe);
+                        obj.setImport_date(date);
+                        obj.setCategory_id(category_id);
+                        obj.setAvatar(avatar);
+
+                        long  rowId = dao.insert(obj);
+                        if (rowId > 0) {
                             Toast.makeText(ProductActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ProductActivity.this, "Thêm thất bại!", Toast.LENGTH_SHORT).show();

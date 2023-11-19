@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         dao = new ProductDAO(context);
         Product obj = arrayList.get(position);
+        Log.d("zzzzz", "onBindViewHolder: "+ obj.toString());
         int index = position;
         byte[] avatar = obj.getAvatar();
-        Toast.makeText(context, "avatar: "+ avatar, Toast.LENGTH_SHORT).show();
+
         if ( obj == null){
             return;
         }
