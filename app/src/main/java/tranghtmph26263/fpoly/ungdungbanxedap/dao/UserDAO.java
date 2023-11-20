@@ -52,6 +52,21 @@ public class UserDAO {
         return  res;
     }
 
+    public int updateActive(User obj){
+        db = dbHelper.getWritableDatabase();
+        if ( obj.getActive() == 1){
+            ContentValues values = new ContentValues();
+            values.put("active", 0);
+            int res = db.update("user", values,"id = ?", new String[] {obj.getId() +"" } );
+            return res;
+        }else {
+            ContentValues values = new ContentValues();
+            values.put("active", 1);
+            int res = db.update("user", values,"id = ?", new String[] {obj.getId() +"" } );
+            return res;
+        }
+    }
+
     public User selectOne(int ID){
         db = dbHelper.getReadableDatabase();
         User obj = null;
@@ -107,8 +122,4 @@ public class UserDAO {
         return false;
     }
 
-    public int updateActive(User obj ){
-        int res = db.delete("user", "id = ?" , new String[] { obj.getId() +"" });
-        return  res;
-    }
 }

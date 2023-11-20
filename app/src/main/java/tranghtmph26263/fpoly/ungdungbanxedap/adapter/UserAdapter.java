@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,9 +60,27 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             holder.btn_ban.setText("Unban");
         }
 
+        String textBtn = holder.btn_ban.getText().toString();
         holder.btn_ban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if ( textBtn.equals("Ban")){
+                    int res = dao.updateActive(obj);
+                    if ( res >0){
+                        Toast.makeText(context, "Ban thành công!", Toast.LENGTH_SHORT).show();
+                        holder.btn_ban.setText("Unban");
+                    }else{
+                        Toast.makeText(context, "Ban thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    int res = dao.updateActive(obj);
+                    if ( res >0){
+                        Toast.makeText(context, "Unban thành công!", Toast.LENGTH_SHORT).show();
+                        holder.btn_ban.setText("Ban");
+                    }else{
+                        Toast.makeText(context, "Ban thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
             }
         });

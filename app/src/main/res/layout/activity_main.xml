@@ -21,19 +21,45 @@
                 android:background="@color/xanh"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
+                <ImageView
+                    android:id="@+id/id_logout_user"
+                    android:background="@drawable/img_12"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"/>
             </androidx.appcompat.widget.Toolbar>
 
             <ViewFlipper
+                android:id="@+id/id_viewFlipper"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/anh1"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/anh2"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/anh3"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/anh4"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/anh5"/>
             </ViewFlipper>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-               >
+                android:layout_height="match_parent" >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,7 +70,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/layout_recyclerView"
+                    android:id="@+id/layout_recyclerView_ngang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -57,19 +83,14 @@
                     android:textStyle="bold"
                     android:text="Sản phẩm hot"/>
 
-                <GridView
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/id_girlview"
+                    android:id="@+id/layout_recyclerView_doc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:numColumns="2">
-
-                </GridView>
-
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-
         </LinearLayout>
-        
     </androidx.drawerlayout.widget.DrawerLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
