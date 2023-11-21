@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UngdungBanXedap</string>
+    <string name="opendrawer">Open Drawer</string>
+    <string name="closedrawer">Close Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

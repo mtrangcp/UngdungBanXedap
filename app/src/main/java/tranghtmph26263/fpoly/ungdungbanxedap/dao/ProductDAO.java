@@ -26,25 +26,6 @@ public class ProductDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-//    public long insertNew(String name, String describe, String import_date, int price, int stock, int sold, int category_id, byte[] avatar){
-//        String sql = "insert into product values(null, ?, ?, ?, ?, ?, ? ,?, ?)";
-//        SQLiteStatement statement = db.compileStatement(sql);
-//        statement.clearBindings();
-//
-//        statement.bindString(1, name);
-//        statement.bindBlob(2, avatar);
-//        statement.bindLong(3, price);
-//        statement.bindString(4, describe);
-//        statement.bindLong(5, stock);
-//        statement.bindString(6, import_date);
-//        statement.bindLong(7, sold);
-//        statement.bindLong(8, category_id);
-//
-//        long rowId = statement.executeInsert();
-//
-//        return rowId;
-//    }
-
     public long insert(Product obj){
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", obj.getName());

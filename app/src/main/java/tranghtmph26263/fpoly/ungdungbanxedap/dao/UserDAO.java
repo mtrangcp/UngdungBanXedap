@@ -67,11 +67,38 @@ public class UserDAO {
         }
     }
 
+    public int changePass (User obj, String newPass){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", newPass);
+        int res = db.update("user", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
+    }
+
     public User selectOne(int ID){
         db = dbHelper.getReadableDatabase();
         User obj = null;
 
         Cursor cursor = db.rawQuery("select * from user where id = ?",new String[] { ID + "" });
+        if(cursor.moveToFirst()){
+            int id = cursor.getInt(0);
+            String username = cursor.getString(1);
+            String password = cursor.getString(2);
+            String fullname = cursor.getString(3);
+            String phone = cursor.getString(4);
+            int active= cursor.getInt(5);
+
+            obj = new User(id, username, password, fullname, phone, active);
+        }
+
+        return obj;
+    }
+
+    public User selectOneWithUsername(String userName){
+        db = dbHelper.getReadableDatabase();
+        User obj = null;
+
+        Cursor cursor = db.rawQuery("select * from user where username = userName",null);
         if(cursor.moveToFirst()){
             int id = cursor.getInt(0);
             String username = cursor.getString(1);

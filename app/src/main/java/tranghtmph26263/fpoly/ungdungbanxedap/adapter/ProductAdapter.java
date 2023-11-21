@@ -55,7 +55,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         dao = new ProductDAO(context);
         Product obj = arrayList.get(position);
-        Log.d("zzzzz", "onBindViewHolder: "+ obj.toString());
         int index = position;
         byte[] avatar = obj.getAvatar();
 

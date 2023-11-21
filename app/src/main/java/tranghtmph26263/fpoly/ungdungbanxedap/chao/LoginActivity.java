@@ -65,12 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     if ( check){
                         Log.d("zzzz", "check: "+check);
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-
-                        SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("PASSWORD",pass );
-                        editor.putString("USERNAME",user );
-                        editor.commit();
+                        RememberUser(u, p, chb_remember.isChecked());
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -98,6 +93,20 @@ public class LoginActivity extends AppCompatActivity {
 
     public void RememberAdmin( String username, String password, boolean status){
         SharedPreferences sharedPreferences = getSharedPreferences("ADMIN_INFO",MODE_PRIVATE );
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if ( !status){
+            editor.clear();
+        }else{
+            editor.putString("PASSWORD",password );
+            editor.putString("USERNAME",username );
+            editor.putBoolean("CHECK",true );
+        }
+        editor.commit();
+    }
+
+    public void RememberUser( String username, String password, boolean status){
+        SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if ( !status){
