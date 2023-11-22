@@ -54,8 +54,6 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
         Discount obj = arrayList.get(index);
         Log.d("zzzzz", "onBindViewHolder: "+ obj.getId());
 
-
-
         if ( obj == null){
             return;
         }
@@ -83,8 +81,6 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int result = dao.deleteRow(obj);
-                        Log.d("zzzzz", "onClick: "+ result);
-                        Log.d("zzzzz", "onClick: "+ obj.getId() + " "+ obj.getCode_name());
                         if ( result> 0){
                             arrayList.remove(index);
                             notifyDataSetChanged();
@@ -236,7 +232,6 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
         }
         return 0;
     }
-
 
     public class DiscountViewholder extends RecyclerView.ViewHolder{
         private TextView tvName, tvDetail, tvStartDate, tvExpirationDate, tvValue;

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapterProduct = new ProductHorizontalAdapter(MainActivity.this, dao);
         dao = new ProductDAO(this);
 
-        arrayList = dao.selectAll();
+        arrayList = dao.selectAllForUser();
         adapterProduct.setData(arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         recyclerViewNgang.setLayoutManager(linearLayoutManager);

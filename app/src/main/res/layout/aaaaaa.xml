@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="11"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/id_drawerlayout"
-    tools:openDrawer="start"
-    tools:context=".MainActivity">
-        
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -61,40 +58,41 @@
                 </ViewFlipper>
 
                 <LinearLayout
-    android:orientation="horizontal"
-    android:weightSum="11"
-    android:layout_marginTop="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_weight="8"
-        app:boxStrokeWidth="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Tìm kiếm"
-            android:background="@drawable/khung"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="horizontal"
+                    android:weightSum="11"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="8"
+                        app:boxStrokeWidth="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:hint="Tìm kiếm"
+                            android:background="@drawable/khung"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/img_search"
-        android:layout_margin="6dp"
-        android:src="@drawable/img_16"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+                    <ImageView
+                        android:id="@+id/img_search"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/img_16"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
 
-    <Spinner
-        android:layout_weight="2"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:layout_weight="2"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
                     <TextView
@@ -120,7 +118,7 @@
                         android:layout_marginBottom="10dp"
                         android:textColor="@color/xanh"
                         android:textStyle="bold"
-                        android:textSize="18dp"
+                        android:textSize="20dp"
                         android:text="Sản phẩm hot"/>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -135,12 +133,4 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/id_navView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header_nav_layout"
-        app:menu="@menu/menu_nav"/>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

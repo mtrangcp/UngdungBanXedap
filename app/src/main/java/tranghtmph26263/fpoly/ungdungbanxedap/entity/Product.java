@@ -85,11 +85,12 @@ public class Product {
                 ", category_id=" + category_id +
                 ", name='" + name + '\'' +
                 ", describe='" + describe + '\'' +
-                ", import_date='" + import_date + '\'' +
-                ", avatar=" + Arrays.toString(avatar) +
                 ", price=" + price +
                 ", stock=" + stock +
                 ", sold=" + sold +
+                ", import_date='" + import_date + '\'' +
+                ", avatar=" + Arrays.toString(avatar) +
+
                 '}';
     }
 

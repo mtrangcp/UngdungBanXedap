@@ -1,12 +1,15 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.adapter;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
+import tranghtmph26263.fpoly.ungdungbanxedap.admin.EditProductActivity;
+import tranghtmph26263.fpoly.ungdungbanxedap.admin.ProductActivity;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.CategoryDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.ProductDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
@@ -76,14 +83,55 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.img_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent  = new Intent(view.getContext(), EditProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", obj.getId());
+                bundle.putString("name", obj.getName());
+                bundle.putByteArray("image", obj.getAvatar());
+                bundle.putInt("price", obj.getPrice());
+                bundle.putString("describe", obj.getDescribe());
+                bundle.putInt("stock", obj.getStock());
+                bundle.putString("importDate", obj.getImport_date());
+                bundle.putInt("sold", obj.getSold());
+                bundle.putInt("categoryId", obj.getCategory_id());
 
+                intent.putExtras(bundle);
+                view.getContext().startActivity(intent);
             }
         });
 
         holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Xóa sản phầm?");
+                builder.setIcon(android.R.drawable.ic_delete);
+                builder.setMessage("Có chắc chắn xóa: "+ obj.getName()+ "?");
 
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int res = dao.softDelete(obj);
+                        if ( res > 0){
+                            arrayList.get(index).setStock(0);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(context, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
