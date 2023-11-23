@@ -22,13 +22,23 @@ public class CategoryDAO {
     public long insertNew(Category obj){
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", obj.getName());
+        contentValues.put("active",obj.getActive() );
 
         long res = db.insert("category", null, contentValues);
         return  res;
     }
 
-    public int deleteRow(Category obj){
-        int res = db.delete("category", "id = ?" , new String[] { obj.getId() +"" });
+    public int deleteSoft(Category obj){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values= new ContentValues();
+        values.put( "name",obj.getName()  );
+        values.put( "active",0  );
+        int res = db.update("category", values,"id = ?", new String[] {obj.getId() +"" } );
+        return  res;
+    }
+
+    public int deleteRow( Category obj){
+        int res = db.delete("category", "id = ?" , new String[]{ obj.getId() +"" });
         return  res;
     }
 
@@ -48,10 +58,8 @@ public class CategoryDAO {
         if(cursor.moveToFirst()){
             int id = cursor.getInt(0);
             String name= cursor.getString(1);
-
-            obj = new Category(id, name);
+            obj = new Category(id,1, name);
         }
-
         return obj;
     }
 
@@ -65,7 +73,24 @@ public class CategoryDAO {
                 int id = cursor.getInt(0);
                 String name= cursor.getString(1);
 
-                listCategory.add(new Category(id, name));
+                listCategory.add(new Category(id,1, name));
+                cursor.moveToNext();
+            }
+        }
+        return  listCategory;
+    }
+
+    public ArrayList<Category> selectAllForUser(){
+        ArrayList<Category> listCategory = new ArrayList<Category>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from category where active > 0", null);
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                String name= cursor.getString(1);
+
+                listCategory.add(new Category(id,1, name));
                 cursor.moveToNext();
             }
         }

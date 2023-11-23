@@ -15,10 +15,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "create table category( id integer not null primary key autoincrement, name text not null)";
+        String sql = "create table category( id integer not null primary key autoincrement, name text not null, active integer)";
         sqLiteDatabase.execSQL(sql);
-        sql = "insert into category(name) values('Xe địa hình'), ('Xe đường phố'), ('Xe đạp Nhật')," +
-                "('Xe trẻ em'), ('Xe cào cào'), ('Xe đạp đua'), ('Xe đạp gấp'), ('Xe không phanh')";
+        sql = "insert into category(name, active) values('Xe địa hình', 1), ('Xe đường phố', 1), ('Xe đạp Nhật', 1)," +
+                "('Xe trẻ em', 1), ('Xe cào cào', 1), ('Xe đạp đua', 1), ('Xe đạp gấp', 1), ('Xe không phanh', 1)";
         sqLiteDatabase.execSQL(sql);
 
 

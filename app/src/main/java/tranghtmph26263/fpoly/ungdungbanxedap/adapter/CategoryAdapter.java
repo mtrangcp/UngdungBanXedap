@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,10 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
         if (obj == null) {
             return;
         }
+        Log.d("aaaa", "trang thai: "+ obj.getName()+"\t "+ obj.getActive());
         holder.tvName.setText(obj.getName());
         holder.tvid.setText(obj.getId()+ "");
+        holder.tvActive.setText(obj.getActive()+"");
 
         holder.img_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +78,12 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int result = dao.deleteRow(obj);
+                        int result = dao.deleteSoft(obj);
                         if ( result> 0){
-                            arrayList.remove(index);
+                            Log.d("aaaa", "active sau khi delete: "+ obj.getActive());
+//                            arrayList.get(index).setActive(0);
+                            arrayList.clear();
+                            arrayList.addAll(dao.selectAll());
                             notifyDataSetChanged();
                             Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
                         }else{
@@ -93,7 +99,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                         dialogInterface.dismiss();
                     }
                 });
-
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
@@ -148,7 +153,7 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
 
                 Category obj = new Category();
                 obj.setName(ed_name.getText().toString().trim());
-
+                obj.setActive(1);
                 long res = dao.insertNew(obj);
                 if ( res > 0){
                     arrayList.clear();
@@ -173,11 +178,12 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvName, tvid;
+        private TextView tvName, tvid, tvActive;
         private ImageView img_edit, img_del;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvActive = itemView.findViewById(R.id.id_active_category);
             tvName = itemView.findViewById(R.id.id_name_category);
             tvid = itemView.findViewById(R.id.id_category);
             img_edit = itemView.findViewById(R.id.edit_category);

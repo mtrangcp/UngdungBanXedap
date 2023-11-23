@@ -10,8 +10,6 @@
     <LinearLayout
         android:layout_margin="5dp"
         android:orientation="horizontal"
-        android:weightSum="10"
-        android:padding="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,31 +17,38 @@
             android:id="@+id/id_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/black"
-            android:layout_weight="1"
             android:hint="ID" />
 
         <TextView
             android:id="@+id/id_name_category"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
             android:textColor="@color/black"
             android:hint="Name"/>
+        <TextView
+            android:id="@+id/id_active_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:hint="active"/>
 
         <ImageView
             android:id="@+id/edit_category"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
             android:src="@drawable/img_7"
             />
         <ImageView
             android:id="@+id/del_category"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="1"
             android:src="@drawable/img_8"
             />
 

@@ -83,7 +83,7 @@ public class ProductActivity extends AppCompatActivity {
 
                 final Spinner spinner = dialog.findViewById(R.id.spin_category);
                 CategoryDAO categoryDAO = new CategoryDAO(ProductActivity.this);
-                SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAll());
+                SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAllForUser());
                 spinner.setAdapter(adapter);
 
                 img_add.setOnClickListener(new View.OnClickListener() {

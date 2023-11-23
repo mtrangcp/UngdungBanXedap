@@ -77,7 +77,7 @@ public class EditProductActivity extends AppCompatActivity {
 
         final Spinner spinner = findViewById(R.id.spin_edit_category);
         CategoryDAO categoryDAO = new CategoryDAO(EditProductActivity.this);
-        ArrayList<Category> list = categoryDAO.selectAll();
+        ArrayList<Category> list = categoryDAO.selectAllForUser();
         SpinCategoryAdapter adapter = new SpinCategoryAdapter(list);
         spinner.setAdapter(adapter);
 

@@ -46,12 +46,14 @@ import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 import tranghtmph26263.fpoly.ungdungbanxedap.fragment.ChangePassUserFragment;
 import tranghtmph26263.fpoly.ungdungbanxedap.fragment.InfoFragment;
+import tranghtmph26263.fpoly.ungdungbanxedap.myInterface.ClickItemProductListener;
+import tranghtmph26263.fpoly.ungdungbanxedap.user.ProductDetailActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ViewFlipper viewFlipper;
     Animation in, out;
 
-    ProductHorizontalAdapter adapterProduct;
+    ProductHorizontalAdapter productHorizontalAdapter;
     ProductVerticalAdapter productVerticalAdapter;
     ArrayList<Product> arrayList = new ArrayList<>();
     ArrayList<Product> listNewPro = new ArrayList<Product>();
@@ -107,21 +109,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Date yesterdayDate = calendar.getTime();
         String yesterday = dateFormat.format(yesterdayDate);
 
-
         listNewPro = dao.selectAllNewProduct(today, yesterday);
         if ( listNewPro.isEmpty()){
             Toast.makeText(this, "k co sp moi", Toast.LENGTH_SHORT).show();
         }
-        Log.d("aaaa", "list sp moi nhat: "+ listNewPro.size());
 
-        adapterProduct = new ProductHorizontalAdapter(MainActivity.this, dao);
-        adapterProduct.setData(listNewPro);
+        productHorizontalAdapter = new ProductHorizontalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
+            @Override
+            public void onClickItemProduct(Product obj) {
+                transferDataToDetail(obj);
+            }
+        });
+        productHorizontalAdapter.setData(listNewPro);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.HORIZONTAL, false);
         recyclerViewNgang.setLayoutManager(linearLayoutManager);
-        recyclerViewNgang.setAdapter(adapterProduct);
+        recyclerViewNgang.setAdapter(productHorizontalAdapter);
         // spinner
         CategoryDAO categoryDAO = new CategoryDAO(MainActivity.this);
-        SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAll());
+        SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAllForUser());
         spinner_loc.setAdapter(adapter);
 
         spinner_loc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -171,6 +176,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 recyclerViewDoc.setAdapter(productVerticalAdapter);
             }
         });
+
+        recyclerViewNgang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void transferDataToDetail(Product obj){
+        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("objProduct", obj);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void chuyenDong(){

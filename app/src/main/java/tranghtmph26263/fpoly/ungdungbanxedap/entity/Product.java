@@ -1,9 +1,10 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.entity;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Arrays;
 
-public class Product {
+public class Product implements Serializable {
     private int id, category_id;
     private String name, describe, import_date;
     private byte[] avatar;

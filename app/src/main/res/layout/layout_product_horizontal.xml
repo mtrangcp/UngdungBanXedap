@@ -8,6 +8,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginLeft="10dp">
     <LinearLayout
+        android:id="@+id/list_ngang"
         android:orientation="vertical"
         android:padding="6dp"
         android:gravity="center"
