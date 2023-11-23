@@ -15,24 +15,23 @@
 
         <ImageView
             android:id="@+id/img_avatarPro_vertical"
-            android:layout_width="150dp"
-            android:layout_height="150dp"     />
+            android:layout_width="130dp"
+            android:layout_height="130dp"     />
 
         <TextView
             android:id="@+id/id_namePro_vertical"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:hint="name"
+            android:textColor="@color/black"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/id_pricePro_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:hint="price"
             android:textStyle="bold"
             android:textColor="@color/black" />
@@ -40,7 +39,7 @@
             android:id="@+id/id_soldPro_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:hint="sold"
             android:textColor="@color/black" />
     </LinearLayout>

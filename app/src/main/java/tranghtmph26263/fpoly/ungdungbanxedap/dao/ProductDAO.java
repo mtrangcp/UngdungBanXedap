@@ -114,7 +114,56 @@ public class ProductDAO {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
+        return listProduct;
+    }
 
+    public ArrayList<Product> selectAllWithCategoryId(int categoryId){
+        ArrayList<Product> listProduct = new ArrayList<Product>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from product where category_id = ?", new String[]{categoryId+""});
+
+        if ( cursor.moveToFirst()){
+            while ( !cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                byte[] img = cursor.getBlob(2);
+                int price = cursor.getInt(3);
+                String describe = cursor.getString(4);
+                int stock = cursor.getInt(5);
+                String date = cursor.getString(6);
+                int sold = cursor.getInt(7);
+                int category_id = cursor.getInt(8);
+
+                listProduct.add(new Product(id, category_id, name, describe, date,img, price, stock, sold));
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return listProduct;
+    }
+
+    public ArrayList<Product> selectAllNewProduct(String today, String yesterday){
+        ArrayList<Product> listProduct = new ArrayList<Product>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from product where import_date = ? or import_date = ?", new String[]{today, yesterday});
+
+        if ( cursor.moveToFirst()){
+            while ( !cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                byte[] img = cursor.getBlob(2);
+                int price = cursor.getInt(3);
+                String describe = cursor.getString(4);
+                int stock = cursor.getInt(5);
+                String date = cursor.getString(6);
+                int sold = cursor.getInt(7);
+                int category_id = cursor.getInt(8);
+
+                listProduct.add(new Product(id, category_id, name, describe, date,img, price, stock, sold));
+                cursor.moveToNext();
+            }
+        }
         cursor.close();
         return listProduct;
     }

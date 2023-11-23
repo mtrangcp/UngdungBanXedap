@@ -17,8 +17,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql = "create table category( id integer not null primary key autoincrement, name text not null)";
         sqLiteDatabase.execSQL(sql);
-        sql = "insert into category(name) values('Xe đạp địa hình'), ('Xe đạp đường phố'), ('Xe đạp Nhật')," +
-                "('Xe đạp trẻ em'), ('Xe đạp cào cào'), ('Xe đạp đua'), ('Xe đạp gấp'), ('Xe đạp không phanh')";
+        sql = "insert into category(name) values('Xe địa hình'), ('Xe đường phố'), ('Xe đạp Nhật')," +
+                "('Xe trẻ em'), ('Xe cào cào'), ('Xe đạp đua'), ('Xe đạp gấp'), ('Xe không phanh')";
         sqLiteDatabase.execSQL(sql);
 
 

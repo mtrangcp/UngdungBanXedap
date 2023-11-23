@@ -59,19 +59,17 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:weightSum="11"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_weight="8"
                         app:boxStrokeWidth="0dp"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:hint="Tìm kiếm"
                             android:background="@drawable/khung"
-                            android:layout_width="match_parent"
+                            android:layout_width="220dp"
                             android:layout_height="wrap_content"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,9 +81,9 @@
                         android:layout_height="30dp"/>
 
                     <Spinner
-                        android:layout_weight="2"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>

@@ -24,6 +24,7 @@ public class UserDAO {
     }
 
     public long insertNew(User obj){
+        db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("fullname", obj.getFullname());
         contentValues.put("username", obj.getUsername());

@@ -17,10 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="AAAAAAAAA"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/white"
         android:textSize="21dp"
-        android:textStyle="bold"
-        android:layout_margin="8dp"/>
+        android:textStyle="bold"/>
 
 
 </LinearLayout>

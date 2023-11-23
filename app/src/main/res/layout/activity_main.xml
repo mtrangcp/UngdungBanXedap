@@ -61,75 +61,74 @@
                 </ViewFlipper>
 
                 <LinearLayout
-    android:orientation="horizontal"
-    android:weightSum="11"
-    android:layout_marginTop="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_weight="8"
-        app:boxStrokeWidth="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Tìm kiếm"
-            android:background="@drawable/khung"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/img_search"
-        android:layout_margin="6dp"
-        android:src="@drawable/img_16"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-    <Spinner
-        android:layout_weight="2"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/xanh"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:text="Sản phẩm mới"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/layout_recyclerView_ngang"
-                        android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:hint="Tìm kiếm"
+                        android:id="@+id/ed_timKiem"
+                        android:layout_width="210dp"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/xanh"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:text="Sản phẩm hot"/>
+                <ImageView
+                    android:id="@+id/img_search"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/img_16"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/layout_recyclerView_doc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:numColumns="2">
-                    </androidx.recyclerview.widget.RecyclerView>
+                <Spinner
+                    android:id="@+id/spinner_loc"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+
                 </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/xanh"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:text="Sản phẩm mới"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/layout_recyclerView_ngang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/xanh"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:text="Sản phẩm hot"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/layout_recyclerView_doc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:numColumns="2">
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+                </ScrollView>
+
             </LinearLayout>
         </FrameLayout>
 
