@@ -143,10 +143,10 @@ public class ProductDAO {
         return listProduct;
     }
 
-    public ArrayList<Product> selectAllNewProduct(String today, String yesterday){
+    public ArrayList<Product> selectAllNewProduct(String today){
         ArrayList<Product> listProduct = new ArrayList<Product>();
         db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from product where import_date = ? or import_date = ?", new String[]{today, yesterday});
+        Cursor cursor = db.rawQuery("select * from product where stock > 0 and import_date = ?", new String[]{today});
 
         if ( cursor.moveToFirst()){
             while ( !cursor.isAfterLast()){

@@ -18,12 +18,18 @@ public class MyDbHelper extends SQLiteOpenHelper {
         String sql = "create table category( id integer not null primary key autoincrement, name text not null, active integer)";
         sqLiteDatabase.execSQL(sql);
         sql = "insert into category(name, active) values('Xe địa hình', 1), ('Xe đường phố', 1), ('Xe đạp Nhật', 1)," +
-                "('Xe trẻ em', 1), ('Xe cào cào', 1), ('Xe đạp đua', 1), ('Xe đạp gấp', 1), ('Xe không phanh', 1)";
+                "('Xe trẻ em', 1), ('Xe cào cào', 1), ('Xe đạp đua', 1), ('Xe đạp gấp', 1), ('Xe không phanh', 1), " +
+                "('Xe thời trang', 0)";
         sqLiteDatabase.execSQL(sql);
 
 
         sql = "create table product(id integer not null primary key autoincrement, name text not null unique, image blob not null ," +
                 " price integer not null, describe text, stock integer, import_date text, sold integer, category_id integer not null )";
+        sqLiteDatabase.execSQL(sql);
+
+
+        sql = "create table cart_detail(id integer not null primary key autoincrement, user_id integer not null , product_id integer not null," +
+                " price integer , quantity integer )";
         sqLiteDatabase.execSQL(sql);
 
 

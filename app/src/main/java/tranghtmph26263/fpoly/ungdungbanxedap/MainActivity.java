@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Date yesterdayDate = calendar.getTime();
         String yesterday = dateFormat.format(yesterdayDate);
 
-        listNewPro = dao.selectAllNewProduct(today, yesterday);
+        listNewPro = dao.selectAllNewProduct(today);
         if ( listNewPro.isEmpty()){
             Toast.makeText(this, "k co sp moi", Toast.LENGTH_SHORT).show();
         }
@@ -126,17 +127,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerViewNgang.setAdapter(productHorizontalAdapter);
         // spinner
         CategoryDAO categoryDAO = new CategoryDAO(MainActivity.this);
-        SpinCategoryAdapter adapter = new SpinCategoryAdapter(categoryDAO.selectAllForUser());
+        ArrayList<Category> listSpiner = new ArrayList<Category>();
+        listSpiner.add(new Category(0, 1, "Tất cả"));
+        listSpiner.addAll(categoryDAO.selectAllForUser());
+        SpinCategoryAdapter adapter = new SpinCategoryAdapter(listSpiner);
         spinner_loc.setAdapter(adapter);
+        spinner_loc.setSelection(Adapter.NO_SELECTION, false);
+
+        arrayList = dao.selectAllForUser();
+        productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+        productVerticalAdapter.setData(arrayList);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerViewDoc.setLayoutManager(manager);
+        recyclerViewDoc.setAdapter(productVerticalAdapter);
+        productVerticalAdapter.notifyDataSetChanged();
 
         spinner_loc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Category objCtegory = (Category) spinner_loc.getSelectedItem();
                 int category_id = objCtegory.getId();
+                Log.d("aaaa", "category_id: "+category_id);
+                if (category_id == 0 ){
+                    arrayList = dao.selectAllForUser();
+                    productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+                    productVerticalAdapter.setData(arrayList);
+                    StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    recyclerViewDoc.setLayoutManager(manager);
+                    recyclerViewDoc.setAdapter(productVerticalAdapter);
+                    productVerticalAdapter.notifyDataSetChanged();
+                    return;
+                }
                 arrayList = dao.selectAllWithCategoryId(category_id);
-                Log.d("aaaaa", "name da chon: "+ objCtegory.getName());
-                Log.d("aaaaa", "list sau khi select with id: "+ arrayList.size()+ "\n"+ arrayList);
 
                 productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
                 productVerticalAdapter.setData(arrayList);
@@ -146,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(MainActivity.this, "k dc chon", Toast.LENGTH_SHORT).show();
                 arrayList = dao.selectAllForUser();
                 productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
                 productVerticalAdapter.setData(arrayList);

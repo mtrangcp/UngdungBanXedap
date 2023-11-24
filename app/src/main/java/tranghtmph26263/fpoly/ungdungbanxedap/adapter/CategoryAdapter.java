@@ -16,6 +16,7 @@ import android.widget.Toast;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CategoryDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,17 +79,28 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int result = dao.deleteSoft(obj);
+                        ArrayList<Product> listSP = new ArrayList<Product>();
+                        listSP.addAll(dao.checkProBeforeDelCategory(obj.getId()));
+                        for ( int j =0; j<listSP.size(); j++){
+                            Log.d("aaaa", "danh sach trc khi xoa: "+listSP.get(j).getName()+ "\t category id: "+listSP.get(j).getCategory_id() + "\t Stock: "+listSP.get(j).getStock());
+                        }
+
+                        int result = dao.softDelete(obj);
                         if ( result> 0){
-                            Log.d("aaaa", "active sau khi delete: "+ obj.getActive());
 //                            arrayList.get(index).setActive(0);
                             arrayList.clear();
                             arrayList.addAll(dao.selectAll());
                             notifyDataSetChanged();
                             Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
+
+                            for ( int j =0; j<listSP.size(); j++){
+                                dao.updateStockPro(listSP.get(j));
+                            }
                         }else{
                             Toast.makeText(context, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
                         }
+                        Toast.makeText(context, "active sau khi delete: "+ arrayList.get(index).getActive(), Toast.LENGTH_SHORT).show();
+
                         dialogInterface.dismiss();
                     }
                 });
@@ -103,7 +115,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                 dialog.show();
             }
         });
-
     }
 
     public void showDialogEdit( Category obj, int index, Context context){
@@ -121,7 +132,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                     Toast.makeText(context, "Vui lòng nhập tên thể loại muốn thay đổi!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 obj.setName(ed_name.getText().toString().trim());
                 int res = dao.updateRow(obj);
                 if ( res > 0){

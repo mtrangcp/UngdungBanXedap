@@ -7,16 +7,19 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 
 public class ProductDetailActivity extends AppCompatActivity {
     ImageView img_avatar;
-    TextView tv_name, tv_price, tv_sold, tv_describe;
+    TextView tv_name, tv_price, tv_sold, tv_stock, tv_describe;
     Button btn_addToCart;
+    EditText ed_soLuong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         tv_name = findViewById(R.id.id_namePro_detail);
         tv_price = findViewById(R.id.id_pricePro_detail);
         tv_sold = findViewById(R.id.id_soldPro_detail);
+        tv_stock = findViewById(R.id.id_stockPro_detail);
         tv_describe = findViewById(R.id.id_describePro_detail);
         btn_addToCart = findViewById(R.id.btn_addProToCart);
+        ed_soLuong.findViewById(R.id.ed_soLuongSp);
 
         Bundle bundle = getIntent().getExtras();
         if ( bundle == null){  return; }
@@ -37,6 +42,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tv_name.setText(obj.getName());
         tv_price.setText("Giá: "+ obj.getPrice());
         tv_sold.setText("Đã bán: "+ obj.getSold());
+        tv_stock.setText("Số lượng kho: "+ obj.getStock());
         tv_describe.setText("Mô tả: "+ obj.getDescribe());
 
         byte[] avatar = obj.getAvatar();
@@ -46,6 +52,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         btn_addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if ( Integer.parseInt(ed_soLuong.getText().toString().trim()) > obj.getStock()){
+                    Toast.makeText(ProductDetailActivity.this, "Số lượng bạn cần lớn hơn số hàng trong kho!", Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });
