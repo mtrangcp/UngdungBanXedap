@@ -48,6 +48,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 import tranghtmph26263.fpoly.ungdungbanxedap.fragment.ChangePassUserFragment;
 import tranghtmph26263.fpoly.ungdungbanxedap.fragment.InfoFragment;
 import tranghtmph26263.fpoly.ungdungbanxedap.myInterface.ClickItemProductListener;
+import tranghtmph26263.fpoly.ungdungbanxedap.user.CartActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.user.ProductDetailActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
 
     EditText ed_timKiem;
-    ImageView img_search;
+    ImageView img_search, imgCart;
     Spinner spinner_loc;
     TextView username_account;
 
@@ -79,6 +80,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ed_timKiem =  findViewById(R.id.ed_timKiem);
         img_search = findViewById(R.id.img_search);
         spinner_loc = findViewById(R.id.spinner_loc);
+        imgCart = findViewById(R.id.id_cartDetail_main);
+
+        imgCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
 
         drawerLayout = findViewById(R.id.id_drawerlayout);
         toolbar = findViewById(R.id.id_toolbar);
@@ -135,7 +144,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         spinner_loc.setSelection(Adapter.NO_SELECTION, false);
 
         arrayList = dao.selectAllForUser();
-        productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+        productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
+            @Override
+            public void onClickItemProduct(Product obj) {
+                transferDataToDetail(obj);
+            }
+        });
         productVerticalAdapter.setData(arrayList);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerViewDoc.setLayoutManager(manager);
@@ -151,7 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.d("aaaa", "category_id: "+category_id);
                 if (category_id == 0 ){
                     arrayList = dao.selectAllForUser();
-                    productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+                    productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
+                        @Override
+                        public void onClickItemProduct(Product obj) {
+                            transferDataToDetail(obj);
+                        }
+                    });
                     productVerticalAdapter.setData(arrayList);
                     StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                     recyclerViewDoc.setLayoutManager(manager);
@@ -161,7 +180,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 arrayList = dao.selectAllWithCategoryId(category_id);
 
-                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
+                    @Override
+                    public void onClickItemProduct(Product obj) {
+                        transferDataToDetail(obj);
+                    }
+                });
                 productVerticalAdapter.setData(arrayList);
                 StaggeredGridLayoutManager manager1 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 recyclerViewDoc.setLayoutManager(manager1);
@@ -169,14 +193,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(MainActivity.this, "k dc chon", Toast.LENGTH_SHORT).show();
-                arrayList = dao.selectAllForUser();
-                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
-                productVerticalAdapter.setData(arrayList);
-                StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                recyclerViewDoc.setLayoutManager(manager);
-                recyclerViewDoc.setAdapter(productVerticalAdapter);
-                productVerticalAdapter.notifyDataSetChanged();
+//                Toast.makeText(MainActivity.this, "k dc chon", Toast.LENGTH_SHORT).show();
+//                arrayList = dao.selectAllForUser();
+//                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+//                productVerticalAdapter.setData(arrayList);
+//                StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//                recyclerViewDoc.setLayoutManager(manager);
+//                recyclerViewDoc.setAdapter(productVerticalAdapter);
+//                productVerticalAdapter.notifyDataSetChanged();
             }
         });
 
@@ -193,7 +217,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
                 Log.d("aaaaa", "list sau khi tim kiem: "+ searchResultList.size());
-                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
+                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
+                    @Override
+                    public void onClickItemProduct(Product obj) {
+                        transferDataToDetail(obj);
+                    }
+                });
                 productVerticalAdapter.setData(searchResultList);
                 StaggeredGridLayoutManager manager1 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 recyclerViewDoc.setLayoutManager(manager1);
@@ -201,12 +230,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        recyclerViewNgang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     private void transferDataToDetail(Product obj){

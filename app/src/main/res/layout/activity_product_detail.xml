@@ -7,11 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".user.ProductDetailActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/id_toolbar_qlyTheLoai"
+        app:title="Chi tiết sản phẩm"
+        app:titleTextColor="@color/white"
+        android:background="@color/xanh"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <ImageView
+            android:id="@+id/id_cartDetail"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:src="@drawable/img_17"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
     <ImageView
         android:layout_marginTop="20dp"
         android:id="@+id/id_imgAvater_detail"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="180dp"/>
 
     <TextView
         android:layout_marginTop="20dp"

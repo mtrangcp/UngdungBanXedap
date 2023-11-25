@@ -22,7 +22,15 @@
                 android:background="@color/xanh"
                 android:id="@+id/id_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"/>
+                android:layout_height="?attr/actionBarSize">
+                <ImageView
+                    android:id="@+id/id_cartDetail_main"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
+                    android:src="@drawable/img_17"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10dp"/>
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout

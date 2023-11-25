@@ -17,9 +17,6 @@ public class UserDAO {
 
     public UserDAO(Context context){
         dbHelper = new MyDbHelper(context);
-    }
-
-    public void open(){
         db = dbHelper.getWritableDatabase();
     }
 

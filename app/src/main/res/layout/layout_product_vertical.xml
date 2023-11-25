@@ -7,6 +7,7 @@
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp">
     <LinearLayout
+        android:id="@+id/list_doc"
         android:orientation="vertical"
         android:padding="6dp"
         android:gravity="center"

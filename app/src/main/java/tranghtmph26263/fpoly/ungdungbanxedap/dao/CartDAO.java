@@ -56,8 +56,8 @@ public class CartDAO {
                 int id = cursor.getInt(0);
                 int user_id= cursor.getInt(1);
                 int pro_id = cursor.getInt(2);
-                int price = cursor.getInt(2);
-                int quantity = cursor.getInt(2);
+                int price = cursor.getInt(3);
+                int quantity = cursor.getInt(4);
 
                 listCart.add(new CartDetail(id,user_id,pro_id, price, quantity));
                 cursor.moveToNext();
@@ -75,8 +75,8 @@ public class CartDAO {
             int id = cursor.getInt(0);
             int user_id= cursor.getInt(1);
             int pro_id = cursor.getInt(2);
-            int price = cursor.getInt(2);
-            int quantity = cursor.getInt(2);
+            int price = cursor.getInt(3);
+            int quantity = cursor.getInt(4);
             obj = new CartDetail(id,user_id,pro_id, price, quantity);
         }
         return obj;

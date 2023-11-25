@@ -56,7 +56,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
         if (obj == null) {
             return;
         }
-        Log.d("aaaa", "trang thai: "+ obj.getName()+"\t "+ obj.getActive());
         holder.tvName.setText(obj.getName());
         holder.tvid.setText(obj.getId()+ "");
         holder.tvActive.setText(obj.getActive()+"");
@@ -87,7 +86,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
 
                         int result = dao.softDelete(obj);
                         if ( result> 0){
-//                            arrayList.get(index).setActive(0);
                             arrayList.clear();
                             arrayList.addAll(dao.selectAll());
                             notifyDataSetChanged();
@@ -99,8 +97,6 @@ public class CategoryAdapter  extends  RecyclerView.Adapter<CategoryAdapter.Cate
                         }else{
                             Toast.makeText(context, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(context, "active sau khi delete: "+ arrayList.get(index).getActive(), Toast.LENGTH_SHORT).show();
-
                         dialogInterface.dismiss();
                     }
                 });
