@@ -76,13 +76,19 @@
                     <EditText
                         android:hint="Tìm kiếm"
                         android:id="@+id/ed_timKiem"
-                        android:layout_width="210dp"
+                        android:layout_width="190dp"
                         android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/img_search"
                     android:layout_margin="6dp"
                     android:src="@drawable/img_16"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+                <ImageView
+                    android:id="@+id/img_discount"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/img18"
                     android:layout_width="30dp"
                     android:layout_height="30dp"/>
 

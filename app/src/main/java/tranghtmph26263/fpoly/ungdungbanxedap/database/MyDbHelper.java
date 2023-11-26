@@ -54,6 +54,14 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 "('VMCS90', '11/11/2023', '11/12/2023', 'Giảm 90k tổng giá trị đơn hàng', 90000)";
         sqLiteDatabase.execSQL(sql);
 
+        sql = "create table bill(id integer not null primary key autoincrement, discount_id integer , user_id integer ," +
+                " address text not null, user_fullname text, created_date text, phone text, temp_price integer, " +
+                "real_price integer not null, status integer, detail text )";
+        sqLiteDatabase.execSQL(sql);
+
+        sql = "create table discount_user(id integer not null primary key autoincrement, discount_id integer , user_id integer," +
+                " status integer )";
+        sqLiteDatabase.execSQL(sql);
     }
 
     @Override

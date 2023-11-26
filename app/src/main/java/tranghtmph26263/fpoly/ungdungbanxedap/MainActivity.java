@@ -49,6 +49,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.fragment.ChangePassUserFragment;
 import tranghtmph26263.fpoly.ungdungbanxedap.fragment.InfoFragment;
 import tranghtmph26263.fpoly.ungdungbanxedap.myInterface.ClickItemProductListener;
 import tranghtmph26263.fpoly.ungdungbanxedap.user.CartActivity;
+import tranghtmph26263.fpoly.ungdungbanxedap.user.DiscountUserActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.user.ProductDetailActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
 
     EditText ed_timKiem;
-    ImageView img_search, imgCart;
+    ImageView img_search, imgCart, imgDiscount;
     Spinner spinner_loc;
     TextView username_account;
 
@@ -81,6 +82,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         img_search = findViewById(R.id.img_search);
         spinner_loc = findViewById(R.id.spinner_loc);
         imgCart = findViewById(R.id.id_cartDetail_main);
+        imgDiscount = findViewById(R.id.img_discount);
+
+        imgDiscount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, DiscountUserActivity.class));
+            }
+        });
 
         imgCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         spinner_loc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 Category objCtegory = (Category) spinner_loc.getSelectedItem();
                 int category_id = objCtegory.getId();
                 Log.d("aaaa", "category_id: "+category_id);

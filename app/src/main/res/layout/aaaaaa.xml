@@ -69,7 +69,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:hint="Tìm kiếm"
                             android:background="@drawable/khung"
-                            android:layout_width="220dp"
+                            android:layout_width="190dp"
                             android:layout_height="wrap_content"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,6 +77,12 @@
                         android:id="@+id/img_search"
                         android:layout_margin="5dp"
                         android:src="@drawable/img_16"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <ImageView
+                        android:id="@+id/img_discount"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/img18"
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>
 

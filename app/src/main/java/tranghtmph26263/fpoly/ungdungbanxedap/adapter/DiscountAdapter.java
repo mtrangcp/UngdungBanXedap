@@ -52,8 +52,6 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
         dao = new DiscountDAO(context);
         int index = position;
         Discount obj = arrayList.get(index);
-        Log.d("zzzzz", "onBindViewHolder: "+ obj.getId());
-
         if ( obj == null){
             return;
         }
