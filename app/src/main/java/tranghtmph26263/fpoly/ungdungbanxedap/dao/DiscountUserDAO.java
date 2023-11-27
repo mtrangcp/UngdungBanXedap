@@ -2,9 +2,13 @@ package tranghtmph26263.fpoly.ungdungbanxedap.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 import tranghtmph26263.fpoly.ungdungbanxedap.database.MyDbHelper;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.Discount;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.DiscountUser;
 
 public class DiscountUserDAO {
@@ -26,5 +30,23 @@ public class DiscountUserDAO {
         return  res;
     }
 
+    public ArrayList<DiscountUser> selectAll(){
+        ArrayList<DiscountUser> listDiscountUser = new ArrayList<DiscountUser>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from discount_user where status >0", null);
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                int status= cursor.getInt(3);
+
+                listDiscountUser.add(new DiscountUser(id, discount_id, user_id, status));
+                cursor.moveToNext();
+            }
+        }
+        return  listDiscountUser;
+    }
 
 }

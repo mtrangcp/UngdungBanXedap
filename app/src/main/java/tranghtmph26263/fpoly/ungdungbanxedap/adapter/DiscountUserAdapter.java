@@ -75,32 +75,10 @@ public class DiscountUserAdapter extends RecyclerView.Adapter<DiscountUserAdapte
                     String user = sharedPreferences.getString("USERNAME", "admin");
                     User objUser = userDAO.selectOneWithUsername(user);
 
-                    LocalDate today = LocalDate.now(); // ngay hom nay
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-
-                    String endDate = obj.getExpiration_date();  // ngay het han
-                    LocalDate parsedDate = LocalDate.parse(endDate, formatter);
-
-                    // So sánh
-                    int status;
-                    if (today.isBefore(parsedDate)) {
-                        Log.d(TAG, "so sanh date: con dung dc");
-                        Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
-                        status = 1;
-                    } else if (today.isAfter(parsedDate)) {
-                        Log.d(TAG, "so sanh date: het han roi");
-                        Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
-                        status = 0;
-                    } else {
-                        Log.d(TAG, "so sanh date: dung het hom nay");
-                        Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
-                        status = 1;
-                    }
-
                     DiscountUser objDiscountUser = new DiscountUser();
                     objDiscountUser.setDiscount_id(obj.getId());
                     objDiscountUser.setUser_id(objUser.getId());
-                    objDiscountUser.setStatus(status);
+                    objDiscountUser.setStatus(0);
 
                     long res = discountUserDAO.insertNew(objDiscountUser);
                     if ( res > 0){
