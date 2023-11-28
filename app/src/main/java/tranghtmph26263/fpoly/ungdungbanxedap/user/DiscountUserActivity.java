@@ -24,7 +24,7 @@ public class DiscountUserActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DiscountUserAdapter adapter;
     ArrayList<Discount> arrayList;
-    ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
+    public static ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
     DiscountDAO dao;
     DiscountUserDAO discountUserDAO;
     String TAG = "aaaa";

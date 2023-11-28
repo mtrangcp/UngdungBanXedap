@@ -90,25 +90,25 @@ public class DiscountDAO {
         }
         return  listDiscount;
     }
-    public ArrayList<Discount> selectAllForUser(int status){
-        ArrayList<Discount> listDiscount = new ArrayList<Discount>();
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from discount", null);
-
-        if(cursor.moveToFirst()){
-            while (!cursor.isAfterLast()){
-                int id = cursor.getInt(0);
-                String name= cursor.getString(1);
-                int value= cursor.getInt(2);
-                String batDau= cursor.getString(3);
-                String hetHan= cursor.getString(4);
-                String detail= cursor.getString(5);
-
-                listDiscount.add(new Discount(id,value, name, detail, batDau, hetHan));
-                cursor.moveToNext();
-            }
-        }
-        return  listDiscount;
-    }
+//    public ArrayList<Discount> selectAllForUser(int status){
+//        ArrayList<Discount> listDiscount = new ArrayList<Discount>();
+//        db = dbHelper.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("select * from discount", null);
+//
+//        if(cursor.moveToFirst()){
+//            while (!cursor.isAfterLast()){
+//                int id = cursor.getInt(0);
+//                String name= cursor.getString(1);
+//                int value= cursor.getInt(2);
+//                String batDau= cursor.getString(3);
+//                String hetHan= cursor.getString(4);
+//                String detail= cursor.getString(5);
+//
+//                listDiscount.add(new Discount(id,value, name, detail, batDau, hetHan));
+//                cursor.moveToNext();
+//            }
+//        }
+//        return  listDiscount;
+//    }
 
 }

@@ -167,6 +167,10 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
+    public void validate(){
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,10 @@ public class CartActivity extends AppCompatActivity {
         dao = new CartDAO(this);
         adapter = new CartAdapter(CartActivity.this, dao);
         arrayList = dao.selectAll();
+        if (arrayList.isEmpty()){
+            Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         adapter.setData(arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -42,6 +48,12 @@ public class CartActivity extends AppCompatActivity {
         btn_muahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (arrayList.isEmpty()){
+                    Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    startActivity(new Intent(CartActivity.this, BillUserActivity.class));
+                }
 
             }
         });

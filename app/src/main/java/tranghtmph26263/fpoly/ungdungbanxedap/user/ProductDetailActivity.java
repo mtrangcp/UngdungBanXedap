@@ -74,6 +74,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         btn_addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ed_soLuong.getText().toString().trim().isEmpty() ){
+                    Toast.makeText(ProductDetailActivity.this, "Vui lòng nhập số lượng!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if ( Integer.parseInt(ed_soLuong.getText().toString().trim()) > obj.getStock()){
                     Toast.makeText(ProductDetailActivity.this, "Số lượng bạn cần lớn hơn số hàng trong kho!", Toast.LENGTH_SHORT).show();
                     return;
