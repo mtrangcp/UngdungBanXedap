@@ -63,7 +63,6 @@ public class ProductBillAdapter extends RecyclerView.Adapter<ProductBillAdapter.
         holder.tvName.setText(objProduct.getName());
         holder.tvPrice.setText("Giá: "+obj.getPrice());
         holder.tvQuantity.setText("Số lượng: "+obj.getQuantity());
-
     }
 
     @Override

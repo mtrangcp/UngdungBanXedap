@@ -64,7 +64,6 @@ public class DiscountUserActivity extends AppCompatActivity {
                 Log.d(TAG, "so sanh date: dung het hom nay");
                 Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
                 status = 1;
-
             }
 
             if ( status == 1){
@@ -76,6 +75,5 @@ public class DiscountUserActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-
     }
 }
