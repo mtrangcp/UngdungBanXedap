@@ -16,9 +16,6 @@ public class AdminActivity extends AppCompatActivity {
     ImageView tvLogout;
     TextView tv_qly_user, tv_qly_category, tv_qly_product, tv_qly_bill,tv_qly_discount, tv_qly_thongKe, tv_changePass;
 
-    private static final int BACK_PRESS_INTERVAL = 2000;
-    private long backPressTime = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +49,7 @@ public class AdminActivity extends AppCompatActivity {
         tv_qly_bill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(AdminActivity.this, BillActivity.class));
             }
         });
         tv_qly_thongKe.setOnClickListener(new View.OnClickListener() {

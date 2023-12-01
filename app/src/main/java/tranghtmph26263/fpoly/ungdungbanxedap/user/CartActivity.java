@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
         adapter = new CartAdapter(CartActivity.this, dao);
         arrayList = dao.selectAll();
         if (arrayList.isEmpty()){
-            Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống!!!", Toast.LENGTH_SHORT).show();
             return;
         }
         adapter.setData(arrayList);
@@ -54,7 +54,6 @@ public class CartActivity extends AppCompatActivity {
                 }else{
                     startActivity(new Intent(CartActivity.this, BillUserActivity.class));
                 }
-
             }
         });
     }

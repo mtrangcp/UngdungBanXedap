@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +25,7 @@ public class DiscountActivity extends AppCompatActivity {
     DiscountDAO dao;
     RecyclerView recyclerView;
     FloatingActionButton fab;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,13 @@ public class DiscountActivity extends AppCompatActivity {
         fab = findViewById(R.id.id_fab_add_discout);
         recyclerView = findViewById(R.id.id_qly_discout);
         recyclerView.setHasFixedSize(true);
+        img = findViewById(R.id.id_discount_home);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DiscountActivity.this, AdminActivity.class));
+            }
+        });
 
         adapter = new DiscountAdapter(DiscountActivity.this, dao);
         dao = new DiscountDAO(this);

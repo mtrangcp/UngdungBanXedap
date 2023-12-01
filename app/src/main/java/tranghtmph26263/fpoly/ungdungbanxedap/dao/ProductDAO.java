@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.database.MyDbHelper;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.CartDetail;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 
 public class ProductDAO {
@@ -24,6 +25,15 @@ public class ProductDAO {
         ContentValues values = new ContentValues();
         values.put("stock", 0);
         int res = db.update("product", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
+    }
+
+    public int updateStock(int ID, int stock, int sold){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("stock", stock);
+        values.put("sold", sold);
+        int res = db.update("product", values,"id = ?", new String[] {ID +"" } );
         return res;
     }
 

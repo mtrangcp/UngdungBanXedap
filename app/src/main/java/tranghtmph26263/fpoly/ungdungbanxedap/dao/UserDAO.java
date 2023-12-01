@@ -96,7 +96,7 @@ public class UserDAO {
         db = dbHelper.getReadableDatabase();
         User obj = null;
 
-        Cursor cursor = db.rawQuery("select * from user where username = userName",null);
+        Cursor cursor = db.rawQuery("select * from user where username = ?",new String[]{userName});
         if(cursor.moveToFirst()){
             int id = cursor.getInt(0);
             String username = cursor.getString(1);

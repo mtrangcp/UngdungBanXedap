@@ -12,7 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
@@ -42,6 +45,17 @@ public class ProductBillAdapter extends RecyclerView.Adapter<ProductBillAdapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_pro_bill, parent, false );
         return new ProductBillHolder(view);
     }
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ProductBillHolder holder, int position) {
@@ -61,7 +75,7 @@ public class ProductBillAdapter extends RecyclerView.Adapter<ProductBillAdapter.
         }
 
         holder.tvName.setText(objProduct.getName());
-        holder.tvPrice.setText("Giá: "+obj.getPrice());
+        holder.tvPrice.setText("Giá: "+formatCurrency(obj.getPrice()));
         holder.tvQuantity.setText("Số lượng: "+obj.getQuantity());
     }
 

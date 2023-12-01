@@ -2,11 +2,13 @@ package tranghtmph26263.fpoly.ungdungbanxedap.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -16,6 +18,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.R;
 public class ChangePasswordActivity extends AppCompatActivity {
     TextInputEditText ed_oldPass, ed_newPass, ed_reNewPass;
     Button btnSave, btnHuy;
+    ImageView imghome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         ed_reNewPass = findViewById(R.id.ed_reNewPass);
         btnSave = findViewById(R.id.btn_save_changePass);
         btnHuy = findViewById(R.id.btn_huy_changePass);
+        imghome = findViewById(R.id.id_changePass_home);
+        imghome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChangePasswordActivity.this, AdminActivity.class));
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

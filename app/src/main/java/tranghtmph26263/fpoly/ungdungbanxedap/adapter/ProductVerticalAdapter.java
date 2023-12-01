@@ -13,7 +13,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.ProductDAO;
@@ -43,6 +46,17 @@ public class ProductVerticalAdapter extends RecyclerView.Adapter<ProductVertical
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_product_vertical, parent, false);
         return new ProductVerticalViewholder(view);
     }
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ProductVerticalViewholder holder, int position) {
@@ -54,7 +68,7 @@ public class ProductVerticalAdapter extends RecyclerView.Adapter<ProductVertical
             return;
         }
         holder.name.setText(obj.getName());
-        holder.price.setText(obj.getPrice()+"");
+        holder.price.setText(formatCurrency(obj.getPrice())+"");
         holder.sold.setText("Đã bán: "+obj.getSold());
         if ( avatar != null){
             Bitmap bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);

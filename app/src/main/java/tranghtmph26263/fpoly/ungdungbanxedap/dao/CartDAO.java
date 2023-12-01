@@ -66,6 +66,22 @@ public class CartDAO {
         return  listCart;
     }
 
+    public CartDetail selectOneWithIdUserAndIdProduct(int user_ID, int product_id){
+        db = dbHelper.getReadableDatabase();
+        CartDetail obj = null;
+
+        Cursor cursor = db.rawQuery("select * from cart_detail where user_id = ? and product_id = ?",new String[] { user_ID + "", product_id+"" });
+        if(cursor.moveToFirst()){
+            int id = cursor.getInt(0);
+            int user_id= cursor.getInt(1);
+            int pro_id = cursor.getInt(2);
+            int price = cursor.getInt(3);
+            int quantity = cursor.getInt(4);
+            obj = new CartDetail(id,user_id,pro_id, price, quantity);
+        }
+        return obj;
+    }
+
     public CartDetail selectOne(int ID){
         db = dbHelper.getReadableDatabase();
         CartDetail obj = null;

@@ -26,7 +26,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.admin.EditProductActivity;
@@ -69,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             return;
         }
         holder.name.setText(obj.getName());
-        holder.price.setText("Giá: "+obj.getPrice());
+        holder.price.setText("Giá: "+formatCurrency(obj.getPrice()));
         holder.describe.setText("Mô tả:"+obj.getDescribe());
         holder.stock.setText("SL kho:"+obj.getStock());
         holder.sold.setText("Đã bán:"+obj.getSold());
@@ -162,5 +165,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             img_edit = itemView.findViewById(R.id.id_edit_product);
             img_del = itemView.findViewById(R.id.id_del_product);
         }
+    }
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
     }
 }

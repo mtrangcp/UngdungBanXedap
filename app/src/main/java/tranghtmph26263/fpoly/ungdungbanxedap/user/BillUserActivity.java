@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,9 +19,12 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.MainActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
@@ -79,13 +83,13 @@ public class BillUserActivity extends AppCompatActivity {
 
         int i;
         for ( i=0; i<arrayList.size(); i++){
-            tongTien += arrayList.get(i).getPrice();
+            tongTien += arrayList.get(i).getPrice()* arrayList.get(i).getQuantity();
         }
-        tv_tempPrice.setText("Tổng tiền: "+tongTien);
+        tv_tempPrice.setText("Tổng tiền: "+formatCurrency(tongTien));
         Discount objDiscount = (Discount) spinner.getSelectedItem();
         int giam = objDiscount.getValue();
         int real_price = tongTien - giam;
-        tv_realPrice.setText("Giá đã giảm: "+real_price);
+//        tv_realPrice.setText("Giá đã giảm: "+ formatCurrency(real_price));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,12 +97,12 @@ public class BillUserActivity extends AppCompatActivity {
                 Discount objDiscount = (Discount) spinner.getSelectedItem();
                 int giam = objDiscount.getValue();
                 int real_price = tongTien - giam;
-                tv_realPrice.setText("Giá đã giảm: "+real_price);
+                tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                tv_realPrice.setText("Giá đã giảm: "+tongTien);
+//                tv_realPrice.setText("Giá đã giảm: "+tongTien);
             }
         });
 
@@ -125,10 +129,11 @@ public class BillUserActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String date = dateFormat.format(currentDate);
 
-                SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
-                String user = preferences.getString("USERNAME", "");
+                SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
+                String user = sharedPreferences.getString("USERNAME", "");
                 userDAO = new UserDAO(BillUserActivity.this);
                 User objUser = userDAO.selectOneWithUsername(user);
+                Log.d("aaaa", "user mua hang: "+ objUser.getFullname());
                 
                 billDAO = new BillDAO(BillUserActivity.this);
                 Discount objDiscountChon = (Discount) spinner.getSelectedItem();
@@ -144,6 +149,7 @@ public class BillUserActivity extends AppCompatActivity {
                 objBill.setUser_id(objUser.getId());
                 objBill.setStatus(0);
                 objBill.setDetail(arrayList.toString());
+                Log.d("aaaa", "\n detail: "+ objBill.getDetail());
 
                 long res = billDAO.insertNew(objBill);
                 if ( res > 0){
@@ -169,6 +175,18 @@ public class BillUserActivity extends AppCompatActivity {
         ed_address = findViewById(R.id.id_address_bill);
         ed_phone = findViewById(R.id.id_phone_bill);
         btn_datHang = findViewById(R.id.btn_datHang);
+    }
+
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
     }
 
 }

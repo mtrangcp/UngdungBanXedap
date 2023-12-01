@@ -2,10 +2,14 @@ package tranghtmph26263.fpoly.ungdungbanxedap.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.database.MyDbHelper;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Bill;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.CartDetail;
 
 public class BillDAO {
     SQLiteDatabase db;
@@ -14,6 +18,22 @@ public class BillDAO {
     public BillDAO(Context context) {
         dbHelper = new MyDbHelper(context);
         db = dbHelper.getWritableDatabase();
+    }
+
+    public int updateStatusChapNhan(Bill obj){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", 1);
+        int res = db.update("bill", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
+    }
+
+    public int updateStatusTuChoi(Bill obj){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", 2);
+        int res = db.update("bill", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
     }
 
     public long insertNew(Bill obj){
@@ -33,7 +53,57 @@ public class BillDAO {
         return  res;
     }
 
+    public ArrayList<Bill> selectAll(){
+        ArrayList<Bill> arrayList = new ArrayList<Bill>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from bill", null);
 
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                String address = cursor.getString(3);
+                String user_fullname = cursor.getString(4);
+                String created_date = cursor.getString(5);
+                String phone= cursor.getString(6);
+                int temp_price = cursor.getInt(7);
+                int real_price = cursor.getInt(8);
+                int status = cursor.getInt(9);
+                String detail = cursor.getString(10);
+
+                arrayList.add(new Bill(id,discount_id,user_id, temp_price, real_price, status,address, user_fullname, created_date, phone, detail));
+                cursor.moveToNext();
+            }
+        }
+        return arrayList;
+    }
+
+    public ArrayList<Bill> selectAllForUser(int ID){
+        ArrayList<Bill> arrayList = new ArrayList<Bill>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from bill where user_id = ?", new String[]{ID+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                String address = cursor.getString(3);
+                String user_fullname = cursor.getString(4);
+                String created_date = cursor.getString(5);
+                String phone= cursor.getString(6);
+                int temp_price = cursor.getInt(7);
+                int real_price = cursor.getInt(8);
+                int status = cursor.getInt(9);
+                String detail = cursor.getString(10);
+
+                arrayList.add(new Bill(id,discount_id,user_id, temp_price, real_price, status,address, user_fullname, created_date, phone, detail));
+                cursor.moveToNext();
+            }
+        }
+        return arrayList;
+    }
 
 
 }

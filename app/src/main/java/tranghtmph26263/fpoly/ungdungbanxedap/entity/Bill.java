@@ -1,10 +1,29 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.entity;
 
-public class Bill {
+import java.io.Serializable;
+
+public class Bill implements Serializable {
     int id, discount_id, user_id, temp_price, real_price,status;
     String address, user_fullname, created_date, phone,detail;
 
     public Bill() {
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id=" + id +
+                ", discount_id=" + discount_id +
+                ", user_id=" + user_id +
+                ", temp_price=" + temp_price +
+                ", real_price=" + real_price +
+                ", status=" + status +
+                ", address='" + address + '\'' +
+                ", user_fullname='" + user_fullname + '\'' +
+                ", created_date='" + created_date + '\'' +
+                ", phone='" + phone + '\'' +
+                ", detail='" + detail + '\'' +
+                '}';
     }
 
     public Bill(int id, int discount_id, int user_id, int temp_price, int real_price, int status, String address, String user_fullname, String created_date, String phone, String detail) {

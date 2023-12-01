@@ -18,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountDAO;
@@ -56,7 +59,7 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
             return;
         }
         holder.tvName.setText(obj.getCode_name());
-        holder.tvValue.setText("Giá trị: "+obj.getValue());
+        holder.tvValue.setText("Giá trị: "+formatCurrency(obj.getValue()));
         holder.tvStartDate.setText("Bắt đầu: "+obj.getStart_date());
         holder.tvExpirationDate.setText("Hết hạn: "+obj.getExpiration_date());
         holder.tvDetail.setText("Mô tả: "+obj.getDetail());
@@ -249,5 +252,15 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
         }
     }
 
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
 
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
+    }
 }

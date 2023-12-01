@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
+
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.UserDAO;
@@ -62,7 +66,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Log.d(TAG, "objProduct: "+obj.toString());
 
         tv_name.setText(obj.getName());
-        tv_price.setText("Giá: "+ obj.getPrice());
+        tv_price.setText("Giá: "+ formatCurrency(obj.getPrice()));
         tv_sold.setText("Đã bán: "+ obj.getSold());
         tv_stock.setText("Số lượng kho: "+ obj.getStock());
         tv_describe.setText("Mô tả: "+ obj.getDescribe());
@@ -97,21 +101,45 @@ public class ProductDetailActivity extends AppCompatActivity {
                 objCart.setUser_id(idUser);
                 objCart.setProduct_id(obj.getId());
                 objCart.setPrice(obj.getPrice());
-                objCart.setQuantity(Integer.parseInt(ed_soLuong.getText().toString().trim()));
-                Log.d(TAG, "obj trc insert: "+ objCart.toString());
 
-                long res = cartDAO.insertNew(objCart);
-                if ( res > 0){
-                    Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
-                    startActivity(intent);
+                CartDetail cartDetail = cartDAO.selectOneWithIdUserAndIdProduct(objCart.getUser_id(), objCart.getProduct_id());
+                if ( cartDetail !=  null){
+                    cartDetail.setQuantity(Integer.parseInt(ed_soLuong.getText().toString().trim())+ cartDetail.getQuantity());
+                    int res = cartDAO.updateRow(cartDetail);
+                    if ( res > 0){
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }else{
-                    Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
-                }
+                    objCart.setQuantity(Integer.parseInt(ed_soLuong.getText().toString().trim()));
+                    long res = cartDAO.insertNew(objCart);
+                    if ( res > 0){
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                    }
 
-                Log.d(TAG, "array gio hang: "+ cartDAO.selectAll().toString());
+                }
 
             }
         });
+    }
+
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
     }
 }

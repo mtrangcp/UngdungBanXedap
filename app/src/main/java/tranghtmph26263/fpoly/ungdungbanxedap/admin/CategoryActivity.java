@@ -10,8 +10,10 @@ import tranghtmph26263.fpoly.ungdungbanxedap.dao.CategoryDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.database.MyDbHelper;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,12 +25,20 @@ public class CategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton fab;
     CategoryDAO dao;
+    ImageView imghome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        imghome = findViewById(R.id.id_category_home);
+        imghome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CategoryActivity.this, AdminActivity.class));
+            }
+        });
         fab = findViewById(R.id.id_fab_add_category);
         recyclerView = findViewById(R.id.id_qly_category);
         recyclerView.setHasFixedSize(true);

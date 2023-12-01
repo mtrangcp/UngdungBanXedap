@@ -31,10 +31,13 @@ import android.widget.ViewFlipper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.ProductHorizontalAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.ProductVerticalAdapter;
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         username_account = navigationView.getHeaderView(0).findViewById(R.id.id_username_account);
         SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
-        String user = sharedPreferences.getString("USERNAME", "admin");
+        String user = sharedPreferences.getString("USERNAME", "");
         username_account.setText("Welcome: "+user);
 
         recyclerViewNgang = findViewById(R.id.layout_recyclerView_ngang);
@@ -201,14 +204,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-//                Toast.makeText(MainActivity.this, "k dc chon", Toast.LENGTH_SHORT).show();
-//                arrayList = dao.selectAllForUser();
-//                productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao);
-//                productVerticalAdapter.setData(arrayList);
-//                StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//                recyclerViewDoc.setLayoutManager(manager);
-//                recyclerViewDoc.setAdapter(productVerticalAdapter);
-//                productVerticalAdapter.notifyDataSetChanged();
             }
         });
 
@@ -239,6 +234,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
+
+
 
     private void transferDataToDetail(Product obj){
         Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);

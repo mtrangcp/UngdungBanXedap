@@ -17,6 +17,18 @@ public class User {
         this.active = active;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fullname='" + fullname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
