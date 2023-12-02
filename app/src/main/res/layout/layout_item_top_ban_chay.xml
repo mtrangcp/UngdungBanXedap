@@ -8,7 +8,6 @@
     android:layout_marginRight="8dp"
     android:layout_marginLeft="10dp">
     <LinearLayout
-        android:id="@+id/list_ngang"
         android:orientation="vertical"
         android:padding="6dp"
         android:gravity="center"
@@ -16,17 +15,23 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_avatarPro_horizontal"
+            android:id="@+id/img_avatarPro_top"
             android:layout_width="80dp"
             android:layout_height="80dp"     />
 
         <TextView
-            android:id="@+id/id_namePro_horizontal"
+            android:id="@+id/id_namePro_top"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="13dp"
-            android:gravity="center"
             android:hint="xe khong phanh california 8s"/>
+        <TextView
+            android:id="@+id/id_soldPro_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:hint="da ban"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

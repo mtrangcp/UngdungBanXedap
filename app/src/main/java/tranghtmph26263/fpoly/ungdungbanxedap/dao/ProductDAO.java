@@ -171,6 +171,32 @@ public class ProductDAO {
         return listProduct;
     }
 
+    public ArrayList<Product> selectTopBanChay(){
+        ArrayList<Product> listProduct = new ArrayList<Product>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from product order by sold desc limit 3", null);
+
+        if ( cursor.moveToFirst()){
+            while ( !cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                byte[] img = cursor.getBlob(2);
+                int price = cursor.getInt(3);
+                String describe = cursor.getString(4);
+                int stock = cursor.getInt(5);
+                String date = cursor.getString(6);
+                int sold = cursor.getInt(7);
+                int category_id = cursor.getInt(8);
+
+                listProduct.add(new Product(id, category_id, name, describe, date,img, price, stock, sold));
+                cursor.moveToNext();
+            }
+        }
+
+        cursor.close();
+        return listProduct;
+    }
+
     public Product selectOne(int ID){
         db = dbHelper.getReadableDatabase();
         Product obj = null;
@@ -191,5 +217,8 @@ public class ProductDAO {
         }
         return obj;
     }
+
+
+
 
 }

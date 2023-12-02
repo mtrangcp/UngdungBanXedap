@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:hint="name"
             android:textColor="@color/black"
+            android:gravity="center"
             android:textSize="16dp"
             android:textStyle="bold" />
 

@@ -81,7 +81,7 @@ public class InfoFragment extends Fragment {
         objUser = userDAO.selectOneWithUsername(username);
 
         tv_fullname.setText(objUser.getFullname());
-        tv_username.setText("USER NAME: "+objUser.getUsername());
+        tv_username.setText("User name: "+objUser.getUsername());
         tv_phone.setText("SĐT: "+objUser.getPhone());
 
         adapter = new BillHistoryAdapter(getContext(), billDAO, new ClickItemBillListener() {

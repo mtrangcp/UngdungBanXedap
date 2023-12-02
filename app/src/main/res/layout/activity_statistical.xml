@@ -4,9 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".admin.StatisticalActivity">
+    <TextView
+        android:text="Top ban chay"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="@color/xanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_ban_chay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/id_doanhThu"
+        android:text="Tổng doanh thu: "
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="@color/xanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="----- ----- ----- ----- ----- ----- ----- ----- ----- -----"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_start_date"
+            android:text="Từ ngày: "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/ed_start_date"
+            android:hint="dd/MM/yyyy"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_end_date"
+            android:text="Đến ngày: "
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/ed_end_date"
+            android:hint="dd/MM/yyyy"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_doanhThu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_16"
+            />
+        <TextView
+            android:id="@+id/id_doanhThu_theo_time"
+            android:text="Doanh thu: "
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:textColor="@color/xanh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="----- ----- ----- ----- ----- ----- ----- ----- ----- -----"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/id_total_bill"
+        android:text="Tong sl bill: "
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="@color/xanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/id_bill_biHuy"
+        android:text="Số bill hủy: "
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="@color/xanh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
