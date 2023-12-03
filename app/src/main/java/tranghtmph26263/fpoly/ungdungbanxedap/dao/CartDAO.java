@@ -66,6 +66,26 @@ public class CartDAO {
         return  listCart;
     }
 
+    public ArrayList<CartDetail> selectAllForUser(int userId){
+        ArrayList<CartDetail> listCart = new ArrayList<CartDetail>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from cart_detail where user_id = ?", new String[]{userId+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int user_id= cursor.getInt(1);
+                int pro_id = cursor.getInt(2);
+                int price = cursor.getInt(3);
+                int quantity = cursor.getInt(4);
+
+                listCart.add(new CartDetail(id,user_id,pro_id, price, quantity));
+                cursor.moveToNext();
+            }
+        }
+        return  listCart;
+    }
+
     public CartDetail selectOneWithIdUserAndIdProduct(int user_ID, int product_id){
         db = dbHelper.getReadableDatabase();
         CartDetail obj = null;
@@ -96,6 +116,11 @@ public class CartDAO {
             obj = new CartDetail(id,user_id,pro_id, price, quantity);
         }
         return obj;
+    }
+
+    public int deleteRowWithUserId( int ID){
+        int res = db.delete("cart_detail", "user_id = ?" , new String[]{ ID +"" });
+        return  res;
     }
 
 }

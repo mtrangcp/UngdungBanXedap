@@ -45,8 +45,6 @@ public class DiscountDAO {
         contentValues.put("expiration_date", obj.getExpiration_date());
         contentValues.put("detail", obj.getDetail());
 
-        Log.d("zzzzz", "updateRow: "+ obj.getId());
-
         int res = db.update("discount",contentValues, "id = ?", new String[]{obj.getId()+""});
         return  res;
     }
@@ -90,14 +88,37 @@ public class DiscountDAO {
         }
         return  listDiscount;
     }
-    public ArrayList<Discount> selectAllForUser(){
+    public ArrayList<Discount> selectForUserSpinner(int userID){
+        ArrayList<Discount> listDiscount = new ArrayList<Discount>();
+        db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from discount inner join discount_user on" +
+                " discount.id = discount_user.discount_id where expiration_date < DATE('now') and discount_user.status >0 " +
+                "and discount_user.user_id  = ?", new String[]{userID+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                String name= cursor.getString(1);
+                int value= cursor.getInt(2);
+                String batDau= cursor.getString(3);
+                String hetHan= cursor.getString(4);
+                String detail= cursor.getString(5);
+
+                listDiscount.add(new Discount(id,value, name, detail, batDau, hetHan));
+                cursor.moveToNext();
+            }
+        }
+        return  listDiscount;
+    }
+
+    public ArrayList<Discount> selectForUser(){
         ArrayList<Discount> listDiscount = new ArrayList<Discount>();
         db = dbHelper.getReadableDatabase();
 //        Cursor cursor = db.rawQuery("select discount.detail from discount inner join discount_user on " +
 //                "discount.id = discount_user.discount_id where discount_user.status >0 ", null);
 
-        Cursor cursor = db.rawQuery("select * from discount where expiration_date < DATE('now') ", null);
-
+        Cursor cursor = db.rawQuery("select * from discount where expiration_date < DATE('now')" , null);
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()){

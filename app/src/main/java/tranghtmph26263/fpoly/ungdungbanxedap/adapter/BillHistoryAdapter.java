@@ -65,6 +65,10 @@ public class BillHistoryAdapter extends RecyclerView.Adapter<BillHistoryAdapter.
             holder.tv_status.setText("Trạng thái: Đã xác nhận");
         }else if ( obj.getStatus() == 2){
             holder.tv_status.setText("Trạng thái: Đã bị hủy");
+        }else if ( obj.getStatus() == 3){
+            holder.tv_status.setText("Trạng thái: Đang giao");
+        }else if ( obj.getStatus() == 4){
+            holder.tv_status.setText("Trạng thái: Đã giao thành công");
         }
 
         holder.tv_fullname.setText(obj.getUser_fullname());

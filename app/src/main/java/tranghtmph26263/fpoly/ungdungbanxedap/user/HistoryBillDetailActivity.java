@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -19,7 +25,6 @@ import java.util.Locale;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CartAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.ProductBillAdapter;
-import tranghtmph26263.fpoly.ungdungbanxedap.admin.BillDetailActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.BillDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountDAO;
@@ -56,21 +61,26 @@ public class HistoryBillDetailActivity extends AppCompatActivity {
         discountDAO = new DiscountDAO(this);
         userDAO = new UserDAO(this);
         dao = new CartDAO(this);
+
+        Bundle bundle = getIntent().getExtras();
+        if ( bundle == null){  return; }
+        Bill obj  = (Bill) bundle.get("objBillUser");
+        String detailString = obj.getDetail();
+        arrayList = convertToCartDetails(detailString);
+
         adapter = new CartAdapter(HistoryBillDetailActivity.this, dao);
         productBillAdapter = new ProductBillAdapter(HistoryBillDetailActivity.this, dao);
-        arrayList = dao.selectAll();
         productBillAdapter.setData(arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(productBillAdapter);
 
-        Bundle bundle = getIntent().getExtras();
-        if ( bundle == null){  return; }
-        Bill obj  = (Bill) bundle.get("objBillUser");
-        Log.d(TAG, "objBill: "+obj.toString());
-
-        Discount objDiscount = discountDAO.selectOne(obj.getDiscount_id());
-        tv_discount.setText("Mã giảm giá: "+objDiscount.getCode_name());
+        if (obj.getDiscount_id() == 0 ){
+            tv_discount.setText("Mã giảm giá: Bạn không sử dụng giảm giá cho đơn hàng này!");
+        }else{
+            Discount objDiscount = discountDAO.selectOne(obj.getDiscount_id());
+            tv_discount.setText("Mã giảm giá: "+objDiscount.getCode_name());
+        }
 
         tv_tongBill.setText("Tổng bill: "+formatCurrency(obj.getReal_price()));
         User objUser = userDAO.selectOne(obj.getUser_id());
@@ -87,6 +97,14 @@ public class HistoryBillDetailActivity extends AppCompatActivity {
         }else if ( obj.getStatus() == 2){
             tv_status.setText("Trạng thái: Đã bị hủy");
             btnHuyDon.setEnabled(false);
+        }else if ( obj.getStatus() == 3){
+            tv_status.setText("Trạng thái: Đang giao");
+            btnHuyDon.setEnabled(false);
+            btnHuyDon.setVisibility(View.INVISIBLE);
+        }else if ( obj.getStatus() == 4){
+            tv_status.setText("Trạng thái: Đã giao thành công");
+            btnHuyDon.setEnabled(false);
+            btnHuyDon.setVisibility(View.INVISIBLE);
         }
 
         btnHuyDon.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +116,16 @@ public class HistoryBillDetailActivity extends AppCompatActivity {
                 tv_status.setText("Trạng thái: Đã bị hủy");
             }
         });
+    }
 
+    private static ArrayList<CartDetail> convertToCartDetails(String inputString) {
+        Gson gson = new Gson();
+
+        // Xác định kiểu dữ liệu bạn muốn phân tích cú pháp
+        Type listType = new TypeToken<ArrayList<CartDetail>>() {}.getType();
+
+        // Phân tích cú pháp chuỗi thành ArrayList<CartDetail>
+        return gson.fromJson(inputString, listType);
     }
 
     public void anhXa(){

@@ -1,11 +1,10 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.user;
 
-import static tranghtmph26263.fpoly.ungdungbanxedap.user.DiscountUserActivity.arrayListForUser;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -37,6 +37,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.dao.BillDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CategoryDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountDAO;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountUserDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.UserDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Bill;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.CartDetail;
@@ -57,8 +58,10 @@ public class BillUserActivity extends AppCompatActivity {
     ProductBillAdapter productBillAdapter;
 
     int tongTien =0;
+    int real_price=0;
     UserDAO userDAO;
     BillDAO billDAO;
+    DiscountUserDAO discountUserDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +69,27 @@ public class BillUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_user);
         anhXa();
 
-        SpinDiscountAdapter adapterSpinner = new SpinDiscountAdapter(arrayListForUser);
-        spinner.setAdapter(adapterSpinner);
+        userDAO = new UserDAO(this);
+        discountUserDAO = new DiscountUserDAO(this);
+        SharedPreferences preferences = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        String username = preferences.getString("USERNAME", "");
+        User  objUser = userDAO.selectOneWithUsername(username);
+
         DiscountDAO discountDAO = new DiscountDAO(BillUserActivity.this);
-        SpinDiscountAdapter spinDiscountAdapter = new SpinDiscountAdapter(discountDAO.selectAllForUser());
+        ArrayList<Discount> arrayListGiam = new ArrayList<>();
+        arrayListGiam = discountUserDAO.selectForUser(objUser.getId());
+        if (arrayListGiam.isEmpty() ){
+            Toast.makeText(this, "Bạn chưa lấy phiếu giảm giá nào!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Hãy lấy phiếu giảm giá ở trang chủ để mua hàng với giá ưu đãi!", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("aaaa", "list giam gia: "+arrayListGiam.size() );
+        SpinDiscountAdapter spinDiscountAdapter = new SpinDiscountAdapter(arrayListGiam);
         spinner.setAdapter(spinDiscountAdapter);
 
         dao = new CartDAO(this);
         adapter = new CartAdapter(BillUserActivity.this, dao);
         productBillAdapter = new ProductBillAdapter(BillUserActivity.this, dao);
-        arrayList = dao.selectAll();
+        arrayList = dao.selectAllForUser(objUser.getId());
         productBillAdapter.setData(arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -86,10 +100,16 @@ public class BillUserActivity extends AppCompatActivity {
             tongTien += arrayList.get(i).getPrice()* arrayList.get(i).getQuantity();
         }
         tv_tempPrice.setText("Tổng tiền: "+formatCurrency(tongTien));
-        Discount objDiscount = (Discount) spinner.getSelectedItem();
-        int giam = objDiscount.getValue();
-        int real_price = tongTien - giam;
-//        tv_realPrice.setText("Giá đã giảm: "+ formatCurrency(real_price));
+        if (arrayListGiam.isEmpty() ){
+             real_price = tongTien ;
+            tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
+        }else{
+            Discount objDiscount = (Discount) spinner.getSelectedItem();
+            int giam = objDiscount.getValue();
+             real_price = tongTien - giam;
+            tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
+        }
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,7 +122,6 @@ public class BillUserActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-//                tv_realPrice.setText("Giá đã giảm: "+tongTien);
             }
         });
 
@@ -142,24 +161,42 @@ public class BillUserActivity extends AppCompatActivity {
                 objBill.setAddress(ed_address.getText().toString().trim());
                 objBill.setCreated_date(date);
                 objBill.setPhone(ed_phone.getText().toString().trim());
-                objBill.setDiscount_id(objDiscountChon.getId());
+                if ( objDiscountChon == null){
+                    objBill.setDiscount_id(0);
+                }else{
+                    objBill.setDiscount_id(objDiscountChon.getId());
+                }
                 objBill.setUser_fullname(ed_fullname.getText().toString().trim());
                 objBill.setTemp_price(tongTien);
                 objBill.setReal_price(real_price);
                 objBill.setUser_id(objUser.getId());
                 objBill.setStatus(0);
-                objBill.setDetail(arrayList.toString());
-                Log.d("aaaa", "\n detail: "+ objBill.getDetail());
+                Gson gson = new Gson();
+                objBill.setDetail(gson.toJson(arrayList));
+                Log.d("aaaa", "chuoi String: "+ objBill.getDetail());
 
                 long res = billDAO.insertNew(objBill);
                 if ( res > 0){
-                    Toast.makeText(BillUserActivity.this, "Đặt hàng thành công, vui lòng chờ xác nhận!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(BillUserActivity.this, MainActivity.class));
-                    finish();
+                    int kq = dao.deleteRowWithUserId(objUser.getId());
+                    if ( kq>0){
+                        if ( objDiscountChon != null){
+                            int result = discountUserDAO.updateStatus(objDiscountChon.getId());
+                            if ( result> 0){
+                                Toast.makeText(BillUserActivity.this, "Đặt hàng thành công, vui lòng chờ xác nhận!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BillUserActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }else{
+
+                            Toast.makeText(BillUserActivity.this, "Đặt hàng thành công, k co giam gia, vui lòng chờ xác nhận!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(BillUserActivity.this, MainActivity.class));
+                            finish();
+                        }
+
+                    }
                 }else{
                     Toast.makeText(BillUserActivity.this, "Đặt hàng thất bại!", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

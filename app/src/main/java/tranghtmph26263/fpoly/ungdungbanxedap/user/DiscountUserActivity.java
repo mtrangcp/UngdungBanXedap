@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,22 +19,31 @@ import tranghtmph26263.fpoly.ungdungbanxedap.adapter.DiscountUserAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.admin.DiscountActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountUserDAO;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.UserDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Discount;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.DiscountUser;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.User;
 
 public class DiscountUserActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DiscountUserAdapter adapter;
     ArrayList<Discount> arrayList;
-    public static ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
+    public ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
     DiscountDAO dao;
     DiscountUserDAO discountUserDAO;
     String TAG = "aaaa";
+    UserDAO userDAO;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discount_user);
+
+        userDAO = new UserDAO(this);
+        SharedPreferences preferences = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        String username = preferences.getString("USERNAME", "");
+        User objUser = userDAO.selectOneWithUsername(username);
 
         recyclerView = findViewById(R.id.id_listDiscount);
         recyclerView.setHasFixedSize(true);
@@ -41,7 +52,7 @@ public class DiscountUserActivity extends AppCompatActivity {
         discountUserDAO = new DiscountUserDAO(this);
         adapter = new DiscountUserAdapter(DiscountUserActivity.this, dao);
 
-        arrayList =dao.selectAll();
+        arrayList =dao.selectForUser();
 
         LocalDate today = LocalDate.now(); // ngay hom nay
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -71,7 +82,7 @@ public class DiscountUserActivity extends AppCompatActivity {
             }
         }
 
-        adapter.setData(arrayListForUser);
+        adapter.setData(arrayList);
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);

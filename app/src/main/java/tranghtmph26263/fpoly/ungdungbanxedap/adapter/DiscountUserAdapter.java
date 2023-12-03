@@ -86,6 +86,7 @@ public class DiscountUserAdapter extends RecyclerView.Adapter<DiscountUserAdapte
                     long res = discountUserDAO.insertNew(objDiscountUser);
                     if ( res > 0){
                         Toast.makeText(context, "Lấy thành công!", Toast.LENGTH_SHORT).show();
+                        holder.btnLay.setEnabled(false);
                     }else{
                         Toast.makeText(context, "Lấy thất bại!", Toast.LENGTH_SHORT).show();
                     }

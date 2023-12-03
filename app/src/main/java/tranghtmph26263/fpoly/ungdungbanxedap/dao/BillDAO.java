@@ -36,6 +36,20 @@ public class BillDAO {
         int res = db.update("bill", values,"id = ?", new String[] {obj.getId() +"" } );
         return res;
     }
+    public int updateStatusDangGiao(Bill obj){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", 3);
+        int res = db.update("bill", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
+    }
+    public int updateStatusDaGiao(Bill obj){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", 4);
+        int res = db.update("bill", values,"id = ?", new String[] {obj.getId() +"" } );
+        return res;
+    }
 
     public long insertNew(Bill obj){
         ContentValues contentValues = new ContentValues();

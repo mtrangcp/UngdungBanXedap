@@ -98,13 +98,14 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:layout_weight="10"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/btn_chapNhan"
                     android:layout_gravity="center"
                     android:text="Chap Nhan"
-                    android:layout_weight="5"
+                    android:layout_weight="2.5"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/bogoc_button"
@@ -114,9 +115,26 @@
                     android:id="@+id/btn_tuChoi"
                     android:layout_gravity="center"
                     android:text="Tu choi"
+                    android:layout_weight="2.5"
+                    android:background="@drawable/bogoc_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/btn_dang_giao"
+                    android:layout_gravity="center"
+                    android:text="Dang giao"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2.5"
+                    android:background="@drawable/bogoc_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/btn_da_giao"
+                    android:layout_gravity="center"
+                    android:text="Da giao"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_weight="5"
+                    android:layout_weight="2.5"
                     android:background="@drawable/bogoc_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

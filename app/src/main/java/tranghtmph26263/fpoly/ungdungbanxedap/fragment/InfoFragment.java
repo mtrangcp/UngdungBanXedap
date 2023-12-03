@@ -1,5 +1,6 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,10 +41,10 @@ public class InfoFragment extends Fragment {
     UserDAO userDAO;
     RecyclerView recyclerView;
     BillHistoryAdapter adapter;
+    TextView tv_username, tv_fullname, tv_phone;
 
     BillDAO billDAO;
     ArrayList<Bill> arrayList = new ArrayList<Bill>();
-
     User objUser = null;
 
     public InfoFragment() {
@@ -64,8 +70,7 @@ public class InfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView tv_username, tv_fullname, tv_phone;
-
+        ImageView img_edit = view.findViewById(R.id.img_edit_user);
 
         tv_username = view.findViewById(R.id.tv_username_info);
         tv_fullname = view.findViewById(R.id.tv_fullname_info);
@@ -102,6 +107,62 @@ public class InfoFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        img_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDIalogEdit(objUser,getContext() );
+
+            }
+        });
+
+    }
+
+    public void showDIalogEdit(User obj, Context context){
+        final Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog_Alert);
+        dialog.setContentView(R.layout.dialog_edit_user);
+
+        TextInputEditText ed_fullname = dialog.findViewById(R.id.ed_edit_fullname);
+        ed_fullname.setText(obj.getFullname());
+        TextInputEditText ed_username = dialog.findViewById(R.id.ed_edit_username);
+        ed_username.setText(obj.getUsername());
+        TextInputEditText ed_phone = dialog.findViewById(R.id.ed_edit_phone);
+        ed_phone.setText(obj.getPhone());
+
+        Button btnSave = dialog.findViewById(R.id.btnSaveEditUser);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( ed_fullname.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Vui lòng nhập họ tên!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ( ed_username.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Vui lòng nhập tên đăng nhập!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ( ed_phone.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Vui lòng nhập số điện thoại!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                obj.setFullname(ed_fullname.getText().toString().trim());
+                obj.setUsername(ed_username.getText().toString().trim());
+                obj.setPhone(ed_phone.getText().toString().trim());
+
+                int res = userDAO.updateRow(obj);
+                if ( res > 0){
+                    tv_fullname.setText(objUser.getFullname());
+                    tv_username.setText("User name: "+objUser.getUsername());
+                    tv_phone.setText("SĐT: "+objUser.getPhone());
+                    Toast.makeText(context, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(context, "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -111,5 +172,6 @@ public class InfoFragment extends Fragment {
         arrayList = billDAO.selectAllForUser(objUser.getId());
         Collections.reverse(arrayList);
         adapter.setData(arrayList);
+
     }
 }

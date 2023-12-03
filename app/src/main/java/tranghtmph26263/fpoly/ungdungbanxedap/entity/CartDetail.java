@@ -15,6 +15,33 @@ public class CartDetail {
         this.quantity = quantity;
     }
 
+    public CartDetail(String objectString) {
+        // Phân tích chuỗi và đặt giá trị cho các trường
+        String[] parts = objectString.split(", ");
+        for (String part : parts) {
+            String[] keyValue = part.split("=");
+            String key = keyValue[0].trim();
+            String value = keyValue[1].trim();
+            switch (key) {
+                case "id":
+                    this.id = Integer.parseInt(value);
+                    break;
+                case "user_id":
+                    this.user_id = Integer.parseInt(value);
+                    break;
+                case "product_id":
+                    this.product_id = Integer.parseInt(value);
+                    break;
+                case "price":
+                    this.price = Integer.parseInt(value);
+                    break;
+                case "quantity":
+                    this.quantity = Integer.parseInt(value);
+                    break;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "CartDetail{" +
