@@ -10,10 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import tranghtmph26263.fpoly.ungdungbanxedap.MainActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CartAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
@@ -24,6 +26,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.entity.User;
 public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btn_muahang;
+    ImageView img;
     CartDAO dao;
     UserDAO userDAO;
     CartAdapter adapter;
@@ -33,6 +36,15 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        img = findViewById(R.id.id_home_cart);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
         userDAO = new UserDAO(this);
         SharedPreferences preferences = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);

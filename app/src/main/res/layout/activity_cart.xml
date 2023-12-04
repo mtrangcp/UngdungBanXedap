@@ -14,6 +14,13 @@
         android:background="@color/xanh"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+        <ImageView
+            android:id="@+id/id_home_cart"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:src="@drawable/img_13"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"/>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -25,6 +25,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AdminActivity.this, LoginActivity.class));
+                finish();
             }
         });
 

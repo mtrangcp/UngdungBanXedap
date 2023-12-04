@@ -73,9 +73,12 @@ public class BillDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(productBillAdapter);
 
-        Discount objDiscount = discountDAO.selectOne(obj.getDiscount_id());
-        tv_discount.setText("Mã giảm giá: "+objDiscount.getCode_name());
-
+        if (obj.getDiscount_id() == 0 ){
+            tv_discount.setText("Mã giảm giá: Đơn hàng này không sử dụng giảm giá!");
+        }else{
+            Discount objDiscount = discountDAO.selectOne(obj.getDiscount_id());
+            tv_discount.setText("Mã giảm giá: "+objDiscount.getCode_name());
+        }
         tv_tongBill.setText("Tổng bill: "+obj.getReal_price());
         User objUser = userDAO.selectOne(obj.getUser_id());
         tv_ngMua.setText("Người mua: "+objUser.getFullname());

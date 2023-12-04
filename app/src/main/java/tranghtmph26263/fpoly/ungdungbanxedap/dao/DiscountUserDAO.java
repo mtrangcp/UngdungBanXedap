@@ -38,10 +38,10 @@ public class DiscountUserDAO {
         return res;
     }
 
-    public ArrayList<DiscountUser> selectAll(){
+    public ArrayList<DiscountUser> selectAll(int ID){
         ArrayList<DiscountUser> listDiscountUser = new ArrayList<DiscountUser>();
         db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from discount_user where status >0", null);
+        Cursor cursor = db.rawQuery("select * from discount_user where user_id  = ?", new String[]{ID+""});
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()){

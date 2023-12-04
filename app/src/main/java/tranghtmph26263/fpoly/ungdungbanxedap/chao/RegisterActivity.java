@@ -67,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 long res = dao.insertNew(obj);
                 if ( res > 0){
                     Toast.makeText(RegisterActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }else{
                     Toast.makeText(RegisterActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
                 }

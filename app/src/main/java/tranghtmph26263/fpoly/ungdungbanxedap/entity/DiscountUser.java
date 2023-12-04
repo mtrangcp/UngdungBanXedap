@@ -17,7 +17,7 @@ public class DiscountUser {
     public String toString() {
         return "DiscountUser{" +
                 "id=" + id +
-                ", product_id=" + discount_id +
+                ", discount_id=" + discount_id +
                 ", user_id=" + user_id +
                 ", status=" + status +
                 '}';

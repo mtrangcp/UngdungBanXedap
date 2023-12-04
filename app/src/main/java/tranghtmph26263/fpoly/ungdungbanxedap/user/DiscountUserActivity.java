@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,12 +29,12 @@ public class DiscountUserActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DiscountUserAdapter adapter;
     ArrayList<Discount> arrayList;
-    public ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
+    ArrayList<Discount> arrayListForUser = new ArrayList<Discount>();
+    ArrayList<DiscountUser> arrayDiscountUser = new ArrayList<DiscountUser>();
     DiscountDAO dao;
     DiscountUserDAO discountUserDAO;
     String TAG = "aaaa";
     UserDAO userDAO;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class DiscountUserActivity extends AppCompatActivity {
         discountUserDAO = new DiscountUserDAO(this);
         adapter = new DiscountUserAdapter(DiscountUserActivity.this, dao);
 
-        arrayList =dao.selectForUser();
+        arrayList =dao.selectAll();
 
         LocalDate today = LocalDate.now(); // ngay hom nay
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -63,16 +64,16 @@ public class DiscountUserActivity extends AppCompatActivity {
 
             int status;
             if (today.isBefore(parsedDate)) {
-                Log.d(TAG, "so sanh date: con dung dc");
+                Log.d(TAG, "so sanh date: con dung dc: "+ arrayList.get(i).getCode_name());
                 Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
                 status = 1;
 
             } else if (today.isAfter(parsedDate)) {
-                Log.d(TAG, "so sanh date: het han roi");
+                Log.d(TAG, "so sanh date: het han roi: "+ arrayList.get(i).getCode_name());
                 Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
                 status = 0;
             } else {
-                Log.d(TAG, "so sanh date: dung het hom nay");
+                Log.d(TAG, "so sanh date: dung het hom nay: "+ arrayList.get(i).getCode_name());
                 Log.d(TAG, "today: "+ today+", ngay het han: "+ endDate);
                 status = 1;
             }
@@ -82,7 +83,24 @@ public class DiscountUserActivity extends AppCompatActivity {
             }
         }
 
-        adapter.setData(arrayList);
+        arrayDiscountUser = discountUserDAO.selectAll(objUser.getId());
+        Log.d(TAG, "arrayDiscountUser: "+ arrayDiscountUser.toString());
+
+        int i,j;
+        for ( i=0; i<arrayDiscountUser.size(); i++){
+            for ( j=0; j<arrayListForUser.size(); j++){
+                if ( arrayDiscountUser.get(i).getDiscount_id() == arrayListForUser.get(j).getId() ){
+                    arrayListForUser.remove(j);
+                }
+            }
+        }
+
+        if (arrayListForUser.isEmpty() ){
+            Toast.makeText(this, "Chưa có phiếu giảm giá mới!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng chờ đợt giảm giá tiếp theo!", Toast.LENGTH_SHORT).show();
+        }
+
+        adapter.setData(arrayListForUser);
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);

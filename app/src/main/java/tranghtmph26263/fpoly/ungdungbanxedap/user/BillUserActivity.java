@@ -75,11 +75,10 @@ public class BillUserActivity extends AppCompatActivity {
         String username = preferences.getString("USERNAME", "");
         User  objUser = userDAO.selectOneWithUsername(username);
 
-        DiscountDAO discountDAO = new DiscountDAO(BillUserActivity.this);
         ArrayList<Discount> arrayListGiam = new ArrayList<>();
         arrayListGiam = discountUserDAO.selectForUser(objUser.getId());
         if (arrayListGiam.isEmpty() ){
-            Toast.makeText(this, "Bạn chưa lấy phiếu giảm giá nào!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Danh sách phiếu giảm giá của bạn đang trống!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Hãy lấy phiếu giảm giá ở trang chủ để mua hàng với giá ưu đãi!", Toast.LENGTH_SHORT).show();
         }
         Log.d("aaaa", "list giam gia: "+arrayListGiam.size() );
@@ -110,7 +109,6 @@ public class BillUserActivity extends AppCompatActivity {
             tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
         }
 
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,7 +117,6 @@ public class BillUserActivity extends AppCompatActivity {
                 int real_price = tongTien - giam;
                 tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }

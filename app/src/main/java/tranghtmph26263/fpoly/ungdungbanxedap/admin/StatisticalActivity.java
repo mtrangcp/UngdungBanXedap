@@ -60,7 +60,7 @@ public class StatisticalActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         tv_doanhThu = findViewById(R.id.id_doanhThu);
-        arrayListAll = billDAO.selectAll();
+        arrayListAll = billDAO.selectAllForDoanhThu();
         for ( int i=0; i< arrayListAll.size(); i++){
             doanhthu += arrayListAll.get(i).getReal_price();
         }
@@ -85,7 +85,7 @@ public class StatisticalActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         ed_tuNgay.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
                     }
-                }, nam, thang, ngay);
+                }, ngay, thang, nam);
                 bangLich.show();
             }
         });
@@ -103,7 +103,7 @@ public class StatisticalActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         ed_denNgay.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
                     }
-                }, nam, thang, ngay);
+                }, ngay, thang, nam);
                 bangLich.show();
             }
         });
@@ -116,7 +116,6 @@ public class StatisticalActivity extends AppCompatActivity {
                 String denNgay = ed_denNgay.getText().toString();
                 BillDAO billDAO = new BillDAO(StatisticalActivity.this);
                 tv_doanhThuTheoTime.setText("Doanh Thu: " + formatCurrency(billDAO.getDoanhThu(tuNgay, denNgay)) );
-                Log.d("aaaa", "doanh thu: "+ formatCurrency(billDAO.getDoanhThu(tuNgay, denNgay)));
             }
         });
 
@@ -133,14 +132,11 @@ public class StatisticalActivity extends AppCompatActivity {
     }
 
     private static  String formatCurrency(int amount) {
-        // Locale cho tiếng Việt và định dạng tiền tệ
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
 
-        // Đặt loại tiền tệ là đồng
         currencyFormatter.setCurrency(Currency.getInstance("VND"));
 
-        // Định dạng số
         return currencyFormatter.format(amount);
     }
 }
