@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.entity.User;
 public class HistoryBillDetailActivity extends AppCompatActivity {
     String TAG = "aaaa";
     RecyclerView recyclerView;
-    TextView tv_discount, tv_tongBill, tv_ngMua, tv_ngNhan, tv_diaChi, tv_sdt, tv_ngayMua, tv_status;
+    TextView tv_discount, tv_tongBill, tv_ngMua, tv_ngNhan, tv_diaChi, tv_sdt, tv_ngayMua, tv_status, tv_comment;
     Button btnHuyDon;
     DiscountDAO discountDAO;
     UserDAO userDAO;
@@ -116,15 +117,27 @@ public class HistoryBillDetailActivity extends AppCompatActivity {
                 tv_status.setText("Trạng thái: Đã bị hủy");
             }
         });
+
+        if (obj.getStatus() != 4 ){
+            tv_comment.setVisibility(View.INVISIBLE);
+        }
+
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HistoryBillDetailActivity.this, CommentActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putSerializable("ArrPro", obj);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
     }
 
     private static ArrayList<CartDetail> convertToCartDetails(String inputString) {
         Gson gson = new Gson();
-
-        // Xác định kiểu dữ liệu bạn muốn phân tích cú pháp
         Type listType = new TypeToken<ArrayList<CartDetail>>() {}.getType();
 
-        // Phân tích cú pháp chuỗi thành ArrayList<CartDetail>
         return gson.fromJson(inputString, listType);
     }
 
@@ -139,6 +152,7 @@ public class HistoryBillDetailActivity extends AppCompatActivity {
         tv_ngayMua = findViewById(R.id.tv_ngay_mua_user);
         tv_status = findViewById(R.id.tv_trang_thai_user);
         btnHuyDon = findViewById(R.id.btn_huyDon);
+        tv_comment = findViewById(R.id.tv_add_comment);
     }
 
     private static  String formatCurrency(int amount) {

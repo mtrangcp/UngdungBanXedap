@@ -21,6 +21,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_oldPass_user"
+            android:background="#F4EFEF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberPassword"
@@ -34,6 +35,7 @@
             android:id="@+id/ed_newPass_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#F4EFEF"
             android:inputType="numberPassword"
             android:hint="Mật khẩu mới"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -46,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberPassword"
+            android:background="#F4EFEF"
             android:hint="Xác nhận mật khẩu mới"/>
     </com.google.android.material.textfield.TextInputLayout>
 

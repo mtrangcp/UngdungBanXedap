@@ -132,9 +132,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String yesterday = dateFormat.format(yesterdayDate);
 
         listNewPro = dao.selectAllNewProduct(today);
-        if ( listNewPro.isEmpty()){
-            Toast.makeText(this, "k co sp moi", Toast.LENGTH_SHORT).show();
-        }
+//        if ( listNewPro.isEmpty()){
+//            Toast.makeText(this, "k co sp moi", Toast.LENGTH_SHORT).show();
+//        }
 
         productHorizontalAdapter = new ProductHorizontalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
             @Override
@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listSpiner.addAll(categoryDAO.selectAllForUser());
         SpinCategoryAdapter adapter = new SpinCategoryAdapter(listSpiner);
         spinner_loc.setAdapter(adapter);
-        spinner_loc.setSelection(Adapter.NO_SELECTION, false);
 
         arrayList = dao.selectAllForUser();
         productVerticalAdapter = new ProductVerticalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
@@ -232,10 +231,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 recyclerViewDoc.setAdapter(productVerticalAdapter);
             }
         });
-
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
+        String user = sharedPreferences.getString("USERNAME", "");
+        username_account.setText("Welcome: "+user);
+    }
 
     private void transferDataToDetail(Product obj){
         Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);

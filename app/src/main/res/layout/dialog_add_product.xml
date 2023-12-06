@@ -56,6 +56,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_add_nameProduct"
                     android:layout_width="match_parent"
+                    android:background="#F4EFEF"
                     android:layout_height="wrap_content"
                     android:hint="Tên sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +69,7 @@
                     android:id="@+id/ed_add_priceProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Giá sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -78,6 +80,7 @@
                     android:id="@+id/ed_add_stockProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Số lượng nhập kho"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -89,6 +92,7 @@
                     android:id="@+id/ed_add_soldProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Số lượng đã bán"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -99,12 +103,14 @@
                     android:id="@+id/ed_add_describeProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Mô tả sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
                 android:layout_margin="10dp"
                 android:id="@+id/spin_category"
+                android:backgroundTint="#F4EFEF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

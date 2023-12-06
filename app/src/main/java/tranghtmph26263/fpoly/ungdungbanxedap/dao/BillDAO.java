@@ -94,6 +94,58 @@ public class BillDAO {
         return arrayList;
     }
 
+    public ArrayList<Bill> selectWithStatus(int Status){
+        ArrayList<Bill> arrayList = new ArrayList<Bill>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from bill where status = ?", new String[]{Status+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                String address = cursor.getString(3);
+                String user_fullname = cursor.getString(4);
+                String created_date = cursor.getString(5);
+                String phone= cursor.getString(6);
+                int temp_price = cursor.getInt(7);
+                int real_price = cursor.getInt(8);
+                int status = cursor.getInt(9);
+                String detail = cursor.getString(10);
+
+                arrayList.add(new Bill(id,discount_id,user_id, temp_price, real_price, status,address, user_fullname, created_date, phone, detail));
+                cursor.moveToNext();
+            }
+        }
+        return arrayList;
+    }
+
+    public ArrayList<Bill> selectWithStatusForUser(int Status, int idUser){
+        ArrayList<Bill> arrayList = new ArrayList<Bill>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from bill where status = ? and user_id = ?", new String[]{Status+"", idUser+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                String address = cursor.getString(3);
+                String user_fullname = cursor.getString(4);
+                String created_date = cursor.getString(5);
+                String phone= cursor.getString(6);
+                int temp_price = cursor.getInt(7);
+                int real_price = cursor.getInt(8);
+                int status = cursor.getInt(9);
+                String detail = cursor.getString(10);
+
+                arrayList.add(new Bill(id,discount_id,user_id, temp_price, real_price, status,address, user_fullname, created_date, phone, detail));
+                cursor.moveToNext();
+            }
+        }
+        return arrayList;
+    }
+
     public ArrayList<Bill> selectAllForDoanhThu(){
         ArrayList<Bill> arrayList = new ArrayList<Bill>();
         db = dbHelper.getReadableDatabase();

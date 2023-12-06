@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".admin.EditProductActivity">
 
     <ScrollView
@@ -59,6 +60,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_edit_nameProduct"
                     android:layout_width="match_parent"
+                    android:background="#F4EFEF"
                     android:layout_height="wrap_content"
                     android:hint="Tên sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -70,6 +72,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_edit_priceProduct"
                     android:layout_width="match_parent"
+                    android:background="#F4EFEF"
                     android:layout_height="wrap_content"
                     android:hint="Giá sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +84,7 @@
                     android:id="@+id/ed_edit_stockProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Số lượng nhập kho"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -92,6 +96,7 @@
                     android:id="@+id/ed_edit_soldProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
                     android:hint="Số lượng đã bán"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -101,6 +106,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_edit_describeProduct"
                     android:layout_width="match_parent"
+                    android:background="#F4EFEF"
                     android:layout_height="wrap_content"
                     android:hint="Mô tả sản phẩm"/>
             </com.google.android.material.textfield.TextInputLayout>

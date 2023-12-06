@@ -20,6 +20,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_codename"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint="Code_name"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_Value"
+            android:background="#F4EFEF"
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_startDate"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint="Từ ngày"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,6 +54,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_expirationDate"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint=" Đến ngày"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -62,6 +66,7 @@
             android:id="@+id/ed_edit_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#F4EFEF"
             android:hint="Detail"/>
     </com.google.android.material.textfield.TextInputLayout>
 

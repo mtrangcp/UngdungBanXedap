@@ -64,6 +64,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         sql = "create table discount_user(id integer not null primary key autoincrement, discount_id integer , user_id integer," +
                 " status integer )";
         sqLiteDatabase.execSQL(sql);
+
+
+        sql = "create table comment(id integer not null primary key autoincrement, user_id integer, product_id integer ," +
+                " content text, time text )";
+        sqLiteDatabase.execSQL(sql);
     }
 
     @Override

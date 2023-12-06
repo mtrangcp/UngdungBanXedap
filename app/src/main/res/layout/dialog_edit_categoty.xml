@@ -19,6 +19,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_nameCategory"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint="Tên thể loại sản phẩm"/>
     </com.google.android.material.textfield.TextInputLayout>

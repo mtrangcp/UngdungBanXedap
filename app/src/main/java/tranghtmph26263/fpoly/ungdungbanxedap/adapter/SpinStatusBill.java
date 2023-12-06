@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 
-public class SpinCategoryAdapter extends BaseAdapter {
-    ArrayList<Category> list;
-    public SpinCategoryAdapter ( ArrayList<Category> list){
+public class SpinStatusBill extends BaseAdapter {
+    ArrayList<String> list = new ArrayList();
+
+    public SpinStatusBill(ArrayList<String> list) {
         this.list = list;
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -22,29 +24,26 @@ public class SpinCategoryAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        Category obj = list.get(i);
-        return obj;
+        return null;
     }
 
     @Override
     public long getItemId(int i) {
-        Category obj = list.get(i);
-        return obj.getId();
+        return 0;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
         View itemView;
         if ( view == null){
             itemView = View.inflate(viewGroup.getContext(), R.layout.layout_item_spin_category, null);
         }else
             itemView = view;
 
-        final Category obj = list.get(i);
-        final int index = i;
-
         TextView tv_name = itemView.findViewById(R.id.tv_name);
-        tv_name.setText(obj.getName());
+        tv_name.setText(list.get(i));
+
 
         return itemView;
     }

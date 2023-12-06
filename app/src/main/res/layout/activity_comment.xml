@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".user.DiscountUserActivity">
+    tools:context=".user.CommentActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_listDiscount"
+        android:layout_margin="10dp"
+        android:id="@+id/id_comment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

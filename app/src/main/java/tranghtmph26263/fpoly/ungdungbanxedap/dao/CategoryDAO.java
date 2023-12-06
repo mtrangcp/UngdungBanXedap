@@ -58,7 +58,7 @@ public class CategoryDAO {
         db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("stock", 0);
-        int res = db.update("product", values,"id = ?", new String[] {obj.getId() +"" } );
+        int res = db.update("product", values,"id = ?", new String[] {obj.getId() +"" });
         return res;
     }
 

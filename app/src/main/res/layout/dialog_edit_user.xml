@@ -19,6 +19,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_fullname"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint="Họ tên"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -29,6 +30,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_edit_username"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
             android:layout_height="wrap_content"
             android:hint="Username"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -40,6 +42,7 @@
         android:id="@+id/ed_edit_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F4EFEF"
         android:hint="Password"/>
 </com.google.android.material.textfield.TextInputLayout>
 

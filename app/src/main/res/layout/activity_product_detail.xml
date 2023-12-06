@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".user.ProductDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -22,7 +23,6 @@
             android:layout_gravity="end"
             android:layout_marginRight="10dp"/>
     </androidx.appcompat.widget.Toolbar>
-
 
     <ImageView
         android:layout_marginTop="20dp"
@@ -98,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:text="Số lượng: "
             />
@@ -106,6 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/xanh"
             android:inputType="number"
             android:layout_weight="1"/>
 

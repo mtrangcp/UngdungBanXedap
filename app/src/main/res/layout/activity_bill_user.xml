@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".user.BillUserActivity">
 
@@ -24,6 +25,7 @@
         android:id="@+id/tv_tongBIll"
         android:hint="Tổng bill: "
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -31,8 +33,8 @@
 
     <Spinner
         android:id="@+id/spinner_discount"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -40,6 +42,7 @@
         android:id="@+id/tv_giaDaGiam"
         android:hint="Giá đã giảm: "
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -54,6 +57,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_fullname_bill"
             android:hint="Họ tên người nhận"
+            android:background="#F4EFEF"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +69,9 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_address_bill"
+            android:textColor="@color/black"
             android:hint="Địa chỉ nhận hàng"
+            android:background="#F4EFEF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,6 +84,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/id_phone_bill"
             android:layout_width="match_parent"
+            android:background="#F4EFEF"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:hint="Số điện thoại người nhận" />
     </com.google.android.material.textfield.TextInputLayout>

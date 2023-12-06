@@ -12,11 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,8 @@ import java.util.Collections;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.BillAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.BillHistoryAdapter;
+import tranghtmph26263.fpoly.ungdungbanxedap.adapter.SpinCategoryAdapter;
+import tranghtmph26263.fpoly.ungdungbanxedap.adapter.SpinStatusBill;
 import tranghtmph26263.fpoly.ungdungbanxedap.admin.BillActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.admin.BillDetailActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.BillDAO;
@@ -62,15 +68,113 @@ public class InfoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_info, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        BillDAO dao = new BillDAO(getContext());
+        userDAO = new UserDAO(getContext());
+        String TAG = "aaaa";
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        String username = preferences.getString("USERNAME", "");
+        objUser = userDAO.selectOneWithUsername(username);
+
+        ArrayList<String> list = new ArrayList();
+        list.add("Tất cả");
+        list.add("Đang chờ xác nhận");
+        list.add("Đã xác nhận");
+        list.add("Đã bị hủy");
+        list.add("Đang giao hàng");
+        list.add("Đã giao thành công");
         ImageView img_edit = view.findViewById(R.id.img_edit_user);
+        Spinner spinner = view.findViewById(R.id.id_spinner_status_user);
+
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapterStatus);
+        spinner.setSelection(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Object chuoi = spinner.getSelectedItem();
+                if (chuoi != null){
+                    if (chuoi.toString().equals("Tất cả") ){
+                        arrayList = dao.selectAllForUser(objUser.getId());
+                        adapter.setData(arrayList);
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+
+                    }else if (chuoi.toString().equals("Đang chờ xác nhận") ){
+                        arrayList = dao.selectWithStatusForUser(0,objUser.getId() );
+                        adapter.setData(arrayList);
+                        if ( arrayList.isEmpty()){
+                            Toast.makeText(getContext(), "Chưa có đơn hàng nào đang chờ xác nhận!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+
+                    }else if (chuoi.toString().equals("Đã xác nhận") ){
+                        arrayList = dao.selectWithStatusForUser(1, objUser.getId());
+                        adapter.setData(arrayList);
+                        if ( arrayList.isEmpty()){
+                            Toast.makeText(getContext(), "Chưa có đơn hàng nào đã xác nhận!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+
+                    }else if (chuoi.toString().equals("Đã bị hủy") ){
+                        arrayList = dao.selectWithStatusForUser(2, objUser.getId());
+                        adapter.setData(arrayList);
+                        if ( arrayList.isEmpty()){
+                            Toast.makeText(getContext(), "Không có đơn hàng nào đã bị hủy!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+
+                    }else if (chuoi.toString().equals("Đang giao hàng") ){
+                        arrayList = dao.selectWithStatusForUser(3, objUser.getId());
+                        adapter.setData(arrayList);
+                        if ( arrayList.isEmpty()){
+                            Toast.makeText(getContext(), "Không có đơn hàng nào đang giao!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+
+                    }else if (chuoi.toString().equals("Đã giao thành công") ){
+                        arrayList = dao.selectWithStatusForUser(4, objUser.getId());
+                        adapter.setData(arrayList);
+                        if ( arrayList.isEmpty()){
+                            Toast.makeText(getContext(), "Không có đơn hàng nào đã giao!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                }else{
+                    Toast.makeText(getContext(), "da chon: rong", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         tv_username = view.findViewById(R.id.tv_username_info);
         tv_fullname = view.findViewById(R.id.tv_fullname_info);
@@ -81,9 +185,6 @@ public class InfoFragment extends Fragment {
         userDAO = new UserDAO(getContext());
         billDAO = new BillDAO(getContext());
 
-        SharedPreferences preferences = getActivity().getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
-        String username = preferences.getString("USERNAME", "");
-        objUser = userDAO.selectOneWithUsername(username);
 
         tv_fullname.setText(objUser.getFullname());
         tv_username.setText("User name: "+objUser.getUsername());

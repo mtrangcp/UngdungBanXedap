@@ -5,10 +5,12 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
+    android:background="@color/white"
     android:layout_margin="10dp">
     <LinearLayout
         android:id="@+id/list_doc"
         android:orientation="vertical"
+        android:background="@color/white"
         android:padding="6dp"
         android:gravity="center"
         android:layout_width="match_parent"
