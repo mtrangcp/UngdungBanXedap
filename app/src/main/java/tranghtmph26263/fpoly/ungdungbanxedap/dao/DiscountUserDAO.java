@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,23 @@ public class DiscountUserDAO {
     }
 
     public int updateStatus(int ID){
-        db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("status", 1);
-        int res = db.update("discount_user", values,"id = ?", new String[] {ID +"" } );
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", 1);
+
+        int res = db.update("discount_user", contentValues,"id = ?", new String[] {ID +"" } );
+        return res;
+    }
+
+    public int updateStatusWithDiscountID(int discountId){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("status", 1);
+
+        int res = db.update("discount_user", contentValues,"discount_id = ?", new String[] {discountId +"" } );
+        return res;
+    }
+
+    public int deleteRow(){
+        int res = db.delete("discount_user", null, null);
         return res;
     }
 
@@ -42,6 +56,42 @@ public class DiscountUserDAO {
         ArrayList<DiscountUser> listDiscountUser = new ArrayList<DiscountUser>();
         db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from discount_user where user_id  = ?", new String[]{ID+""});
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int discount_id= cursor.getInt(1);
+                int user_id = cursor.getInt(2);
+                int status= cursor.getInt(3);
+
+                listDiscountUser.add(new DiscountUser(id, discount_id, user_id, status));
+                cursor.moveToNext();
+            }
+        }
+        return  listDiscountUser;
+    }
+
+    public DiscountUser selectOneWithUseridAndDiscountid(int userId, int discountId){
+        db = dbHelper.getReadableDatabase();
+        DiscountUser obj = null;
+
+        Cursor cursor = db.rawQuery("select * from discount_user where user_id = ? and discount_id = ?", new String[]{userId+"",discountId+"" });
+
+        if(cursor.moveToFirst()){
+            int id = cursor.getInt(0);
+            int discount_id= cursor.getInt(1);
+            int user_id = cursor.getInt(2);
+            int status= cursor.getInt(3);
+
+            obj = new DiscountUser(id, discount_id, user_id, status);
+        }
+        return  obj;
+    }
+
+    public ArrayList<DiscountUser> selectDiscountUserChon(int Discount_id, int User_id){
+        ArrayList<DiscountUser> listDiscountUser = new ArrayList<DiscountUser>();
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from discount_user where user_id  = ? and discount_id = ?", new String[]{User_id+"", Discount_id+""});
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()){
@@ -76,6 +126,7 @@ public class DiscountUserDAO {
                 cursor.moveToNext();
             }
         }
+        Log.d("cccc", "list giam gia: "+ listDiscountUser.toString());
         return  listDiscountUser;
     }
 

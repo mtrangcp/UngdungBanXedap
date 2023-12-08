@@ -117,30 +117,64 @@ public class BillDetailActivity extends AppCompatActivity {
         btnChapNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int res = billDAO.updateStatusChapNhan(obj);
-                if ( res > 0){
-                    int check = 0;
-                    for ( int i=0; i< arrayList.size(); i++){
+                String chuoiLoiStock = "";
+                for ( int i=0; i< arrayList.size(); i++){
+                    Product product = productDAO.selectOne(arrayList.get(i).getProduct_id());
+
+                    if ( product.getStock() < arrayList.get(i).getQuantity()) {
+                        chuoiLoiStock += "Sản phẩm: " + product.getName() + " chỉ còn " + product.getStock() + " chiếc \n";
+                        continue;
+                    }
+                }
+
+                if (chuoiLoiStock == "") {
+                    for ( int i=0; i< arrayList.size(); i++) {
                         Product product = productDAO.selectOne(arrayList.get(i).getProduct_id());
-                        int currentStock =  product.getStock() - arrayList.get(i).getQuantity();
+                        int currentStock = product.getStock() - arrayList.get(i).getQuantity();
                         int sold = product.getSold() + arrayList.get(i).getQuantity();
-                        int kq = productDAO.updateStock(product.getId(), currentStock, sold);
-                        Log.d("mmmm", "onClick: "+ productDAO.selectOne(product.getId()));
-                        if ( kq > 0){
-                            check++;
-                        }
+                        productDAO.updateStock(product.getId(), currentStock, sold);
                     }
-                    if ( check == arrayList.size()){
-                        Toast.makeText(BillDetailActivity.this, "Chấp nhận thành công!", Toast.LENGTH_SHORT).show();
-                        tv_status.setText("Trạng thái: Đã xác nhận");
-                    }
+                    Toast.makeText(BillDetailActivity.this, "Chấp nhận thành công!", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Trạng thái: Đã xác nhận");
                     btnTuChoi.setEnabled(false);
                     btnChapNhan.setEnabled(false);
                     btnDaGiao.setEnabled(false);
                     btnDangGiao.setEnabled(true);
-                }else{
-                    Toast.makeText(BillDetailActivity.this, "Chấp nhận thất bại!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(BillDetailActivity.this, chuoiLoiStock, Toast.LENGTH_SHORT).show();
                 }
+
+                //=======================================================================================
+//                String chuoiLoiStock = "";
+//                int res = billDAO.updateStatusChapNhan(obj);
+//                if ( res > 0){
+//                    int check = 0;
+//                    for ( int i=0; i< arrayList.size(); i++){
+//                        Product product = productDAO.selectOne(arrayList.get(i).getProduct_id());
+//
+//                        if ( product.getStock() < arrayList.get(i).getQuantity()){
+//                            chuoiLoiStock += "Sản phẩm: "+ product.getName()+" chỉ còn "+ product.getStock()+" chiếc \n";
+//                            continue;
+//                        }
+//
+//                        int currentStock =  product.getStock() - arrayList.get(i).getQuantity();
+//                        int sold = product.getSold() + arrayList.get(i).getQuantity();
+//                        int kq = productDAO.updateStock(product.getId(), currentStock, sold);
+//                        Log.d("mmmm", "onClick: "+ productDAO.selectOne(product.getId()));
+//                        if ( kq > 0){
+//                            check++;
+//                        }
+//                    }
+//
+//                    Toast.makeText(BillDetailActivity.this, "Chấp nhận thành công!", Toast.LENGTH_SHORT).show();
+//                    tv_status.setText("Trạng thái: Đã xác nhận");
+//                    btnTuChoi.setEnabled(false);
+//                    btnChapNhan.setEnabled(false);
+//                    btnDaGiao.setEnabled(false);
+//                    btnDangGiao.setEnabled(true);
+//                }else{
+//                    Toast.makeText(BillDetailActivity.this, "Chấp nhận thất bại!", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
         btnTuChoi.setOnClickListener(new View.OnClickListener() {

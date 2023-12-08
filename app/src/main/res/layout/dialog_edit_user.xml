@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:background="#F4EFEF"
             android:layout_height="wrap_content"
-            android:hint="Username"/>
+            android:hint="Tài khoản"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
     android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F4EFEF"
-        android:hint="Password"/>
+        android:hint="Số điện thoại"/>
 </com.google.android.material.textfield.TextInputLayout>
 
 

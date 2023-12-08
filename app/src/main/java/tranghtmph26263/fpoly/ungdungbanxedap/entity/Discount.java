@@ -66,4 +66,16 @@ public class Discount {
     public void setExpiration_date(String expiration_date) {
         this.expiration_date = expiration_date;
     }
+
+    @Override
+    public String toString() {
+        return "Discount{" +
+                "id=" + id +
+                ", value=" + value +
+                ", code_name='" + code_name + '\'' +
+                ", detail='" + detail + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", expiration_date='" + expiration_date + '\'' +
+                '}';
+    }
 }

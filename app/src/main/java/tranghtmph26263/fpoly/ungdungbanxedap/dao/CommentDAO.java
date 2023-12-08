@@ -67,6 +67,26 @@ public class CommentDAO {
         return listComment;
     }
 
+    public ArrayList<Comment> selectAllWithProsuctId(int product_id){
+        ArrayList<Comment> listComment = new ArrayList<>();
+        db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from comment where  product_id = ?",new String[]{product_id+""});
+
+        if ( cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id = cursor.getInt(0);
+                int user_id = cursor.getInt(1);
+                int discount_id = cursor.getInt(2);
+                String content = cursor.getString(3);
+                String time = cursor.getString(4);
+
+                listComment.add(new Comment(id, user_id, discount_id, content, time));
+                cursor.moveToNext();
+            }
+        }
+
+        return listComment;
+    }
 
 
 }

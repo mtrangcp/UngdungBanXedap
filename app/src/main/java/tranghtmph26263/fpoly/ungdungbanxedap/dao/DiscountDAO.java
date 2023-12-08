@@ -32,10 +32,15 @@ public class DiscountDAO {
         return  res;
     }
 
-    public int deleteRow(Discount obj){
-        int res = db.delete("discount", "id = ?" , new String[]{ obj.getId() +"" });
+    public int deleteRow(String today, Discount obj){
+        ContentValues contentValues= new ContentValues();
+
+        contentValues.put("expiration_date", today);
+
+        int res = db.update("discount",contentValues, "id = ?" , new String[]{ obj.getId() +"" });
         return  res;
     }
+
 
     public int updateRow(Discount obj){
         ContentValues contentValues= new ContentValues();
@@ -71,7 +76,7 @@ public class DiscountDAO {
     public ArrayList<Discount> selectAll(){
         ArrayList<Discount> listDiscount = new ArrayList<Discount>();
         db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from discount", null);
+        Cursor cursor = db.rawQuery("select * from discount " , null);
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()){

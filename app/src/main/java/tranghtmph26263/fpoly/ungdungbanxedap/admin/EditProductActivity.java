@@ -150,8 +150,10 @@ public class EditProductActivity extends AppCompatActivity {
                 int res = dao.updateRow(obj, name);
                 Log.d("ccccc", "ket qua update: "+res);
                 if ( res > 0){
-                    startActivity(new Intent(EditProductActivity.this, ProductActivity.class));
+                    Intent intent1 = new Intent(EditProductActivity.this, ProductActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     Toast.makeText(EditProductActivity.this, "Sửa thành công!", Toast.LENGTH_SHORT).show();
+                    startActivity(intent1);
                     finish();
                 }
                 else{
@@ -179,4 +181,6 @@ public class EditProductActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

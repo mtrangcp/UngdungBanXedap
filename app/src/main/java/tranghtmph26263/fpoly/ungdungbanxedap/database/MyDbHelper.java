@@ -46,12 +46,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 " start_date text, expiration_date text , detail text )";
         sqLiteDatabase.execSQL(sql);
         sql = "insert into discount(code_name, start_date, expiration_date, detail, value) values" +
-                "('VMCS20', '1/10/2023', '1/12/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
-                "('VMCS30', '1/11/2023', '1/12/2023', 'Giảm 30k tổng giá trị đơn hàng', 30000), " +
-                "('VMCS40', '10/11/2023', '1/12/2023', 'Giảm 40k tổng giá trị đơn hàng', 40000), " +
-                "('VMCS50', '13/10/2023', '15/12/2023', 'Giảm 50k tổng giá trị đơn hàng', 50000), " +
-                "('VMCS60', '8/11/2023', '11/12/2023', 'Giảm 60k tổng giá trị đơn hàng', 60000), " +
-                "('VMCS90', '11/11/2023', '11/12/2023', 'Giảm 90k tổng giá trị đơn hàng', 90000)";
+                "('VMCS20', '1/12/2023', '1/12/2023', 'Giảm 20k tổng giá trị đơn hàng', 20000), " +
+                "('VMCS30', '1/12/2023', '10/12/2023', 'Giảm 30k tổng giá trị đơn hàng', 30000), " +
+                "('VMCS40', '10/12/2023', '11/12/2023', 'Giảm 40k tổng giá trị đơn hàng', 40000), " +
+                "('VMCS50', '13/12/2023', '15/12/2023', 'Giảm 50k tổng giá trị đơn hàng', 50000), " +
+                "('VMCS60', '8/12/2023', '11/12/2023', 'Giảm 60k tổng giá trị đơn hàng', 60000), " +
+                "('VMCS90', '9/12/2023', '11/12/2023', 'Giảm 90k tổng giá trị đơn hàng', 90000)";
         sqLiteDatabase.execSQL(sql);
 
 

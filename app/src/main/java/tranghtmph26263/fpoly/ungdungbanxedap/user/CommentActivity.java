@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import tranghtmph26263.fpoly.ungdungbanxedap.MainActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CartAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CommentAdapter;
@@ -27,6 +31,7 @@ public class CommentActivity extends AppCompatActivity {
     CommentDAO commentDAO;
     ArrayList<CartDetail> arrayList = new ArrayList<CartDetail>();
     CommentAdapter commentAdapter;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,14 @@ public class CommentActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.id_comment);
         recyclerView.setHasFixedSize(true);
+        img = findViewById(R.id.id_home_comment);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CommentActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         dao = new CartDAO(this);
         commentDAO = new CommentDAO(this);
 

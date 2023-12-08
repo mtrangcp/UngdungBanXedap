@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".user.CommentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/id_toolbar_qlyTheLoai"
+        app:title="Comment"
+        app:titleTextColor="@color/white"
+        android:background="@color/xanh"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <ImageView
+            android:id="@+id/id_home_comment"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:src="@drawable/img_13"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="10dp"

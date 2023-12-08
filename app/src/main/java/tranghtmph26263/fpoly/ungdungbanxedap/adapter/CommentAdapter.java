@@ -125,7 +125,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     public class CommentViewHolder extends RecyclerView.ViewHolder{
         private TextView tvName;
-        private ImageView img_edit, img_del, img_anh;
+        private ImageView  img_anh;
         TextInputEditText ed_noidung;
         Button btn_gui;
 
@@ -134,8 +134,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             ed_noidung = itemView.findViewById(R.id.ed_noidung_commnent);
             tvName = itemView.findViewById(R.id.tv_tenSp_comment);
             img_anh = itemView.findViewById(R.id.img_anh_comment);
-//            img_edit = itemView.findViewById(R.id.img_edit_comment);
-//            img_del = itemView.findViewById(R.id.img_del_comment);
             btn_gui = itemView.findViewById(R.id.btn_add_comment);
         }
     }

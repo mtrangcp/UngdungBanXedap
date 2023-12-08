@@ -25,13 +25,13 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/id_imgAvater_detail"
         android:layout_width="match_parent"
-        android:layout_height="180dp"/>
+        android:layout_height="150dp"/>
 
     <TextView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/id_namePro_detail"
         android:text="name"
         android:textStyle="bold"
@@ -80,14 +80,19 @@
     <TextView
         android:id="@+id/id_describePro_detail"
         android:text="mo ta"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_comment_pro_detail"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"/>
     <LinearLayout
         android:orientation="horizontal"

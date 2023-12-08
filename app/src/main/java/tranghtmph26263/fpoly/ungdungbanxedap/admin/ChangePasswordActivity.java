@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
+import tranghtmph26263.fpoly.ungdungbanxedap.chao.LoginActivity;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     TextInputEditText ed_oldPass, ed_newPass, ed_reNewPass;
@@ -73,6 +74,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 editor.putString("PASSWORD",ed_newPass.getText().toString().trim() );
                 editor.commit();
                 Toast.makeText(ChangePasswordActivity.this, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class));
 
             }
         });

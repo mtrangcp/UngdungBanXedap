@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Spinner spinner_loc;
     TextView username_account;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +103,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         drawerLayout = findViewById(R.id.id_drawerlayout);
+
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            SharedPreferences sharedPreferences = getSharedPreferences("USER_INFO",MODE_PRIVATE );
+            String user = sharedPreferences.getString("USERNAME", "");
+            username_account.setText("Welcome: "+user);
+            }
+        });
+
         toolbar = findViewById(R.id.id_toolbar);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.opendrawer,R.string.closedrawer);
@@ -132,9 +144,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String yesterday = dateFormat.format(yesterdayDate);
 
         listNewPro = dao.selectAllNewProduct(today);
-//        if ( listNewPro.isEmpty()){
-//            Toast.makeText(this, "k co sp moi", Toast.LENGTH_SHORT).show();
-//        }
 
         productHorizontalAdapter = new ProductHorizontalAdapter(MainActivity.this, dao, new ClickItemProductListener() {
             @Override

@@ -167,8 +167,11 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    public void validate(){
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        arrayList = dao.selectAll();
+        adapterProduct.setData(arrayList);
     }
 
     @Override

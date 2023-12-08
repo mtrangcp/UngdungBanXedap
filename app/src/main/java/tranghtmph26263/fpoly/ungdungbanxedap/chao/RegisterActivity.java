@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText ed_username, ed_pass, ed_fullname, ed_phone;
     Button btnSave, btnHuy;
@@ -52,8 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if(ed_phone.getText().toString().trim().isEmpty() ){
                     Toast.makeText(RegisterActivity.this, "Vui lòng nhập phone!", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (ed_phone.getText().toString().trim().length() >10 || ed_phone.getText().toString().trim().equals("0000000000") ){
-                    Toast.makeText(RegisterActivity.this, "Vui lòng nhập đúng phone có 10 số!", Toast.LENGTH_SHORT).show();
+                }else if ( !isValidPhoneNumberFormat(ed_phone.getText().toString().trim()) ){
+                    Toast.makeText(RegisterActivity.this, "Vui lòng nhập đúng số điện thoại Việt Nam!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -91,6 +94,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static boolean isValidPhoneNumberFormat(String phoneNumber) {
+        String regex = "0[13579]\\d{8}";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 
 }

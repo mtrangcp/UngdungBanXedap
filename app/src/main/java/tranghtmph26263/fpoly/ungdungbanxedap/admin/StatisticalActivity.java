@@ -83,9 +83,13 @@ public class StatisticalActivity extends AppCompatActivity {
                 DatePickerDialog bangLich = new DatePickerDialog(StatisticalActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        ed_tuNgay.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
+                        String day = "";
+                        if ( dayOfMonth < 10){
+                            day = "0"+ String.valueOf(dayOfMonth);
+                        }
+                        ed_tuNgay.setText(String.format("%s/%s/%s", day, month+1, year));
                     }
-                }, ngay, thang, nam);
+                }, nam, thang, ngay);
                 bangLich.show();
             }
         });
@@ -101,9 +105,13 @@ public class StatisticalActivity extends AppCompatActivity {
                 DatePickerDialog bangLich = new DatePickerDialog(StatisticalActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        ed_denNgay.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
+                        String day = "";
+                        if ( dayOfMonth < 10){
+                            day = "0"+ String.valueOf(dayOfMonth);
+                        }
+                        ed_denNgay.setText(String.format("%s/%s/%s", day, month+1, year));
                     }
-                }, ngay, thang, nam);
+                }, nam, thang, ngay);
                 bangLich.show();
             }
         });

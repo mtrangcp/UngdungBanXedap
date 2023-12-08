@@ -11,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.BillDAO;
@@ -57,7 +60,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewholder
             return;
         }
         User objUser = userDAO.selectOne(obj.getUser_id());
-        holder.tv_price.setText("Tổng tiền: "+obj.getReal_price());
+        holder.tv_price.setText("Tổng tiền: "+formatCurrency(obj.getReal_price()));
         if ( obj.getStatus() == 0){
             holder.tv_status.setText("Trạng thái: Đang chờ xác nhận");
         }else if ( obj.getStatus() == 1){
@@ -77,6 +80,18 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewholder
                 listener.onClickItemBIll(obj);
             }
         });
+    }
+
+    private static  String formatCurrency(int amount) {
+        // Locale cho tiếng Việt và định dạng tiền tệ
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+
+        // Đặt loại tiền tệ là đồng
+        currencyFormatter.setCurrency(Currency.getInstance("VND"));
+
+        // Định dạng số
+        return currencyFormatter.format(amount);
     }
 
     @Override

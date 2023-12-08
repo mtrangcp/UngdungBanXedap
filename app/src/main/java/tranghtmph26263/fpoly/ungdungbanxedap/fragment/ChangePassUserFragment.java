@@ -99,6 +99,9 @@ public class ChangePassUserFragment extends Fragment {
                 int res = dao.changePass(obj,ed_newPass.getText().toString().trim());
                 if ( res > 0){
                     Toast.makeText(getContext(), "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
+                    ed_oldPass.setText("");
+                    ed_newPass.setText("");
+                    ed_reNewPass.setText("");
                 }else{
                     Toast.makeText(getContext(), "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();
                 }

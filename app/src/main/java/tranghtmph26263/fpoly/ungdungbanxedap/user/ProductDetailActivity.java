@@ -1,6 +1,8 @@
 package tranghtmph26263.fpoly.ungdungbanxedap.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,17 +18,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
+import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CommentAdapter;
+import tranghtmph26263.fpoly.ungdungbanxedap.adapter.CommentUserAdapter;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.CartDAO;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.CommentDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.UserDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.CartDetail;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.Comment;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Product;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.User;
 
 public class ProductDetailActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    ArrayList<Comment> arrayList = new ArrayList<>();
     String TAG = "aaaa";
     ImageView img_avatar, imgCart;
     TextView tv_name, tv_price, tv_sold, tv_stock, tv_describe;
@@ -35,23 +44,19 @@ public class ProductDetailActivity extends AppCompatActivity {
     UserDAO userDAO;
     CartDAO cartDAO;
     int idUser;
+    CommentDAO commentDAO;
+    CommentUserAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        anhXa();
 
-        img_avatar = findViewById(R.id.id_imgAvater_detail);
-        tv_name = findViewById(R.id.id_namePro_detail);
-        tv_price = findViewById(R.id.id_pricePro_detail);
-        tv_sold = findViewById(R.id.id_soldPro_detail);
-        tv_stock = findViewById(R.id.id_stockPro_detail);
-        tv_describe = findViewById(R.id.id_describePro_detail);
-        btn_addToCart = findViewById(R.id.btn_addProToCart);
-        ed_soLuong = findViewById(R.id.ed_soLuongSp);
-        imgCart = findViewById(R.id.id_cartDetail);
         userDAO = new UserDAO(ProductDetailActivity.this);
         cartDAO = new CartDAO(ProductDetailActivity.this);
+        commentDAO = new CommentDAO(ProductDetailActivity.this);
+        adapter = new CommentUserAdapter(this, commentDAO);
 
         imgCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +134,25 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        arrayList = commentDAO.selectAllWithProsuctId(obj.getId());
+        adapter.setData(arrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public  void anhXa(){
+        img_avatar = findViewById(R.id.id_imgAvater_detail);
+        tv_name = findViewById(R.id.id_namePro_detail);
+        tv_price = findViewById(R.id.id_pricePro_detail);
+        tv_sold = findViewById(R.id.id_soldPro_detail);
+        tv_stock = findViewById(R.id.id_stockPro_detail);
+        tv_describe = findViewById(R.id.id_describePro_detail);
+        btn_addToCart = findViewById(R.id.btn_addProToCart);
+        ed_soLuong = findViewById(R.id.ed_soLuongSp);
+        imgCart = findViewById(R.id.id_cartDetail);
+        recyclerView = findViewById(R.id.list_comment_pro_detail);
     }
 
     private static  String formatCurrency(int amount) {

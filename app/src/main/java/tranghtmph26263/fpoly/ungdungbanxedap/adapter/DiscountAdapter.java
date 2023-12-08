@@ -19,12 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
 import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountDAO;
+import tranghtmph26263.fpoly.ungdungbanxedap.dao.DiscountUserDAO;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Discount;
 
@@ -32,6 +35,7 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     private Context context;
     private ArrayList<Discount> arrayList;
     DiscountDAO dao;
+    DiscountUserDAO discountUserDAO;
 
     public DiscountAdapter(Context context, DiscountDAO dao) {
         this.context = context;
@@ -53,6 +57,8 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     @Override
     public void onBindViewHolder(@NonNull DiscountViewholder holder, int position) {
         dao = new DiscountDAO(context);
+        discountUserDAO = new DiscountUserDAO(context);
+
         int index = position;
         Discount obj = arrayList.get(index);
         if ( obj == null){
@@ -81,8 +87,13 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int result = dao.deleteRow(obj);
-                        if ( result> 0){
+                        Date currentDate = new Date();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        String date = dateFormat.format(currentDate);
+
+                        int result = dao.deleteRow(date,obj);
+                        int res = discountUserDAO.updateStatusWithDiscountID(obj.getId());
+                        if ( result> 0 && res > 0){
                             arrayList.remove(index);
                             notifyDataSetChanged();
                             Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();

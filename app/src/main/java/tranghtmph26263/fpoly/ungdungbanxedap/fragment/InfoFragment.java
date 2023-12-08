@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -79,6 +82,7 @@ public class InfoFragment extends Fragment {
         userDAO = new UserDAO(getContext());
         String TAG = "aaaa";
 
+
         SharedPreferences preferences = getActivity().getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         String username = preferences.getString("USERNAME", "");
         objUser = userDAO.selectOneWithUsername(username);
@@ -105,6 +109,7 @@ public class InfoFragment extends Fragment {
                 if (chuoi != null){
                     if (chuoi.toString().equals("Tất cả") ){
                         arrayList = dao.selectAllForUser(objUser.getId());
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
 
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -113,6 +118,7 @@ public class InfoFragment extends Fragment {
 
                     }else if (chuoi.toString().equals("Đang chờ xác nhận") ){
                         arrayList = dao.selectWithStatusForUser(0,objUser.getId() );
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(getContext(), "Chưa có đơn hàng nào đang chờ xác nhận!", Toast.LENGTH_SHORT).show();
@@ -124,6 +130,7 @@ public class InfoFragment extends Fragment {
 
                     }else if (chuoi.toString().equals("Đã xác nhận") ){
                         arrayList = dao.selectWithStatusForUser(1, objUser.getId());
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(getContext(), "Chưa có đơn hàng nào đã xác nhận!", Toast.LENGTH_SHORT).show();
@@ -135,6 +142,7 @@ public class InfoFragment extends Fragment {
 
                     }else if (chuoi.toString().equals("Đã bị hủy") ){
                         arrayList = dao.selectWithStatusForUser(2, objUser.getId());
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(getContext(), "Không có đơn hàng nào đã bị hủy!", Toast.LENGTH_SHORT).show();
@@ -146,6 +154,7 @@ public class InfoFragment extends Fragment {
 
                     }else if (chuoi.toString().equals("Đang giao hàng") ){
                         arrayList = dao.selectWithStatusForUser(3, objUser.getId());
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(getContext(), "Không có đơn hàng nào đang giao!", Toast.LENGTH_SHORT).show();
@@ -157,6 +166,7 @@ public class InfoFragment extends Fragment {
 
                     }else if (chuoi.toString().equals("Đã giao thành công") ){
                         arrayList = dao.selectWithStatusForUser(4, objUser.getId());
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(getContext(), "Không có đơn hàng nào đã giao!", Toast.LENGTH_SHORT).show();
@@ -255,7 +265,21 @@ public class InfoFragment extends Fragment {
                     tv_fullname.setText(objUser.getFullname());
                     tv_username.setText("User name: "+objUser.getUsername());
                     tv_phone.setText("SĐT: "+objUser.getPhone());
+
+                    SharedPreferences preferences = getActivity().getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("USERNAME",objUser.getUsername() );
+                    editor.commit();
+
                     Toast.makeText(context, "Thay đổi thành công!", Toast.LENGTH_SHORT).show();
+
+//                    FragmentManager manager = requireActivity().getSupportFragmentManager();
+//                    Fragment fragment = (InfoFragment) manager.findFragmentById(R.id.fragment_change_info);
+//                    if ( fragment != null){
+//                        manager.beginTransaction().remove(fragment).commit();
+//                    }else {
+//                        Toast.makeText(context, "k tim thay fragment", Toast.LENGTH_SHORT).show();
+//                    }
 
                 }else{
                     Toast.makeText(context, "Thay đổi thất bại!", Toast.LENGTH_SHORT).show();

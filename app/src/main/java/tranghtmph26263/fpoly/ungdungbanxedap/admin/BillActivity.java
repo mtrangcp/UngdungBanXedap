@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class BillActivity extends AppCompatActivity {
     Spinner spinner;
@@ -56,8 +58,6 @@ public class BillActivity extends AppCompatActivity {
         spinner.setAdapter(adapterStatus);
         spinner.setSelection(0);
 
-
-
         dao = new BillDAO(this);
         adapter = new BillAdapter(BillActivity.this, dao, new ClickItemBillListener() {
             @Override
@@ -70,8 +70,8 @@ public class BillActivity extends AppCompatActivity {
             }
         });
         arrayList = dao.selectAll();
+        Collections.reverse(arrayList);
         adapter.setData(arrayList);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -86,14 +86,15 @@ public class BillActivity extends AppCompatActivity {
 
                     if (chuoi.toString().equals("Tất cả") ){
                         arrayList = dao.selectAll();
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
-
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplication(), RecyclerView.VERTICAL, false);
                         recyclerView.setLayoutManager(linearLayoutManager);
                         recyclerView.setAdapter(adapter);
 
                     }else if (chuoi.toString().equals("Đang chờ xác nhận") ){
                         arrayList = dao.selectWithStatus(0);
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(BillActivity.this, "Chưa có đơn hàng nào đang chờ xác nhận!", Toast.LENGTH_SHORT).show();
@@ -105,6 +106,7 @@ public class BillActivity extends AppCompatActivity {
 
                     }else if (chuoi.toString().equals("Đã xác nhận") ){
                         arrayList = dao.selectWithStatus(1);
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(BillActivity.this, "Chưa có đơn hàng nào đã xác nhận!", Toast.LENGTH_SHORT).show();
@@ -116,6 +118,7 @@ public class BillActivity extends AppCompatActivity {
 
                     }else if (chuoi.toString().equals("Đã bị hủy") ){
                         arrayList = dao.selectWithStatus(2);
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(BillActivity.this, "Không có đơn hàng nào đã bị hủy!", Toast.LENGTH_SHORT).show();
@@ -127,6 +130,7 @@ public class BillActivity extends AppCompatActivity {
 
                     }else if (chuoi.toString().equals("Đang giao hàng") ){
                         arrayList = dao.selectWithStatus(3);
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(BillActivity.this, "Không có đơn hàng nào đang giao!", Toast.LENGTH_SHORT).show();
@@ -138,6 +142,7 @@ public class BillActivity extends AppCompatActivity {
 
                     }else if (chuoi.toString().equals("Đã giao thành công") ){
                         arrayList = dao.selectWithStatus(4);
+                        Collections.reverse(arrayList);
                         adapter.setData(arrayList);
                         if ( arrayList.isEmpty()){
                             Toast.makeText(BillActivity.this, "Không có đơn hàng nào đã giao!", Toast.LENGTH_SHORT).show();

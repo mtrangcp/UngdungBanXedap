@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tranghtmph26263.fpoly.ungdungbanxedap.MainActivity;
 import tranghtmph26263.fpoly.ungdungbanxedap.R;
@@ -43,6 +45,7 @@ import tranghtmph26263.fpoly.ungdungbanxedap.entity.Bill;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.CartDetail;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Category;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.Discount;
+import tranghtmph26263.fpoly.ungdungbanxedap.entity.DiscountUser;
 import tranghtmph26263.fpoly.ungdungbanxedap.entity.User;
 
 public class BillUserActivity extends AppCompatActivity {
@@ -81,7 +84,14 @@ public class BillUserActivity extends AppCompatActivity {
             Toast.makeText(this, "Danh sách phiếu giảm giá của bạn đang trống!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Hãy lấy phiếu giảm giá ở trang chủ để mua hàng với giá ưu đãi!", Toast.LENGTH_SHORT).show();
         }
+
+        ArrayList<DiscountUser> arrayListGiam1 = new ArrayList<>();
+        arrayListGiam1 = discountUserDAO.selectAll(objUser.getId());
         Log.d("aaaa", "list giam gia: "+arrayListGiam.size() );
+        for ( int j =0; j < arrayListGiam1.size(); j++){
+            Log.d("aaaa", "list giam gia: "+arrayListGiam1.get(j).toString() );
+        }
+
         SpinDiscountAdapter spinDiscountAdapter = new SpinDiscountAdapter(arrayListGiam);
         spinner.setAdapter(spinDiscountAdapter);
 
@@ -112,16 +122,25 @@ public class BillUserActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
                 Discount objDiscount = (Discount) spinner.getSelectedItem();
+                Log.d("cccc", "pgieu gima da chon: "+ objDiscount.toString());
+
                 int giam = objDiscount.getValue();
                 int real_price = tongTien - giam;
                 tv_realPrice.setText("Giá đã giảm: "+formatCurrency(real_price));
+//
+//                ArrayList<DiscountUser> discountUserArrayList = discountUserDAO.selectDiscountUserChon(objUser.getId(), objDiscount.getId());
+//                for ( int j=0; j< discountUserArrayList.size(); j++){
+//                    Log.d("cccc", "discountttttttttt chon: "+ discountUserArrayList.get(j).toString());
+//                }
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
         btn_datHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,8 +148,11 @@ public class BillUserActivity extends AppCompatActivity {
                     Toast.makeText(BillUserActivity.this, "Vui lòng nhập số điện thoại người nhận!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (ed_phone.getText().toString().trim().length()> 10){
-                    Toast.makeText(BillUserActivity.this, "Vui lòng nhập đúng số điện thoại người nhận!", Toast.LENGTH_SHORT).show();
+                if (ed_phone.getText().toString().trim().isEmpty()){
+                    Toast.makeText(BillUserActivity.this, "Vui lòng nhập số điện thoại người nhận!", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if ( !isValidPhoneNumberFormat(ed_phone.getText().toString().trim())){
+                    Toast.makeText(BillUserActivity.this, "Vui lòng nhập số điện thoại Việt Nam!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if ( ed_fullname.getText().toString().trim().isEmpty()){
@@ -177,26 +199,33 @@ public class BillUserActivity extends AppCompatActivity {
                     int kq = dao.deleteRowWithUserId(objUser.getId());
                     if ( kq>0){
                         if ( objDiscountChon != null){
-                            int result = discountUserDAO.updateStatus(objDiscountChon.getId());
+                            DiscountUser objDiscountUser = discountUserDAO.selectOneWithUseridAndDiscountid(objUser.getId(),objDiscountChon.getId());
+
+                            int result = discountUserDAO.updateStatus(objDiscountUser.getId());
+                            Log.d("cccc", "onClick: "+ result);
                             if ( result> 0){
+                                btn_datHang.setEnabled(false);
                                 Toast.makeText(BillUserActivity.this, "Đặt hàng thành công, vui lòng chờ xác nhận!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BillUserActivity.this, MainActivity.class));
+                                finish();
+                            }else{
+                                btn_datHang.setEnabled(false);
+                                Toast.makeText(BillUserActivity.this, "k update dc giam gia", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(BillUserActivity.this, MainActivity.class));
                                 finish();
                             }
                         }else{
-
+                            btn_datHang.setEnabled(false);
                             Toast.makeText(BillUserActivity.this, "Đặt hàng thành công, k co giam gia, vui lòng chờ xác nhận!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(BillUserActivity.this, MainActivity.class));
                             finish();
                         }
-
                     }
                 }else{
                     Toast.makeText(BillUserActivity.this, "Đặt hàng thất bại!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
     public void anhXa(){
@@ -216,11 +245,16 @@ public class BillUserActivity extends AppCompatActivity {
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
 
-        // Đặt loại tiền tệ là đồng
         currencyFormatter.setCurrency(Currency.getInstance("VND"));
-
-        // Định dạng số
         return currencyFormatter.format(amount);
+    }
+
+    public static boolean isValidPhoneNumberFormat(String phoneNumber) {
+        String regex = "0[13579]\\d{8}";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 
 }
